@@ -1,0 +1,147 @@
+.FHA-sidecard {
+	background-color: #f5f5f5;
+	border: 1px solid #e3e3e3;
+	width: 250px;
+	margin-top: 20px;
+	padding-top: 20px;
+}
+
+.FHA-sidecard .title {
+	text-align: center;
+	font-size: 16px;
+	font-weight: 700;
+}
+
+.FHA-sidecard h1, .FHA-sidecard  h2, .FHA-sidecard  h3 {
+	margin-top: 16px;
+	margin-bottom: 4px;
+}
+
+.FHA-sidecard h1 {
+	font-size: 12px;
+	font-weight: 700;
+	padding-left: 14px;
+	cursor: pointer;
+	color: #666666;
+}
+
+.FHA-sidecard h1:HOVER {
+	color: #000000;
+}
+
+.FHA-sidecard h2 {
+	font-size: 12px;
+	font-weight: 700;
+	padding-left: 8px;
+	margin-left: 16px;
+	margin-top: 4px;
+	cursor: pointer;
+	color: #666666;
+}
+
+.FHA-sidecard h2:HOVER {
+	color: #000000;
+}
+
+.FHA-sidecard h3 {
+	font-size: 12px;
+	font-weight: 700;
+	padding-left: 8px;
+	margin-left: 24px;
+	margin-top: 4px;
+	cursor: pointer;
+	color: #666666;
+}
+
+.FHA-sidecard h3:HOVER {
+	color: #000000;
+}
+
+.FHA-sidecard .chapter-info {
+	font-size: 12px;
+	color: #999;
+}
+
+.FHA-sidecard ul {
+	margin: 0px;
+	padding: 0px;
+	text-align: center;
+	padding-left: 10px;
+	padding-right: 10px;
+	clear: both;
+}
+
+.FHA-sidecard li {
+	float: left;
+	width: 22px;
+	height: 22px;
+	font-size: 11px;
+	margin: 1px;
+	padding-top: 3px;
+	text-align: center;
+	width: 26px;
+	overflow: hidden;
+	background-color: #f9baba;
+	color: #666;
+	border: 1px solid #d13133;
+	cursor: pointer;
+}
+
+.FHA-sidecard li:HOVER {
+	border: 1px solid #d13133;
+	color: #ffffff;
+	background-color: #fb7979;
+}
+
+.FHA-sidecard .active {
+	background-color: #d13133;
+	color: #ffffff;
+	border: 1px solid #d13133;
+}
+
+.FHA-sidecard-split {
+	clear: both;
+	width: 100%;
+	height: 1px;
+}
+
+.subjectUnitViewBox.active {
+	border: 1px solid #d13133;
+}
+
+.FHA-sidecard-buttons {
+	margin-top: 50px;
+}
+
+.FHA-countdown-title {
+	font-size: 12px;
+	color: #999;
+}
+
+.FHA-countdown-title .defaut {
+	font-size: 18px;
+}
+
+.FHA-countdown-title .alarm {
+	font-size: 26px;
+	color: #d13133;
+}
+
+.FHA-paper-forms h2 {
+	font-size: 20px;
+	margin-left: 8px;
+	font-weight: 700;
+	margin-top: 1em;
+}
+
+.FHA-paper-forms h3 {
+	font-size: 18px;
+	margin-left: 8px;
+	margin-top: 1em;
+}
+
+.FHA-paper-forms h4 {
+	font-size: 16px;
+	margin-left: 8px;
+	margin-top: 1em;
+}

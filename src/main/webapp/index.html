@@ -1,0 +1,84 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="css/card.css" rel="stylesheet">
+</head>
+<body>
+<div id="app">
+
+
+    <!--页头-->
+    <div>
+
+    </div>
+    <!--页头以下-->
+    <div>
+        <!--题目-->
+        <div id="topic">
+            <div style="width: 75%; background: #8c939d; padding: 4px" >
+                <div style="text-align: center;">
+                    <h1>{{topic.name}}</h1>
+                    <span style="font-weight: 700;">共{{topic.nums_big}}道大题，{{topic.nums_number}}道小题, 满分{{topic.totalScore}}</span>
+                    <span style="font-weight: 700;">
+                        <br>
+                        答题时间：<span style="color: #dd6161">{{topic.time}}</span>
+                        答 题 人：<span style="color: #dd6161">{{user.name}}</span>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <!--题目框-->
+        <div>
+
+        </div>
+    </div>
+</div>
+
+
+
+    <script src="js/app.js"></script>
+    <!--导入axios框架 vue2框架 element组件 以及css样式-->
+    <script src="js/axios-0.18.0.js"></script>
+    <script src="js/vue.js"></script>
+    <script src="element-ui/lib/index.js"></script>
+    <link rel="stylesheet" href="element-ui/lib/theme-chalk/index.css">
+    <script>
+        new Vue({
+            el: "#app",
+            methods: {
+                
+            },
+            data(){
+                return {
+                    topic:{
+                        name:"各种题型展示",
+                        nums_big: 2,
+                        nums_number: 7,
+                        totalScore: 100,
+                        time: 60,
+                        topics:{
+                            top1:{
+                                subject:"“举世闻名”中“举”的意思是()，“举重”中“举”的意思是()。",
+                                options:{
+                                    option1:"往上托",
+                                    option2:"全",
+                                    option3:"推选",
+                                    option4:"举动",
+                                }
+                            }
+                        }
+                    },
+                    user:{
+                        name: "何涛",
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+</html>
