@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <script
+            src="https://kit.fontawesome.com/64d58efce2.js"
+            crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="css/style.css"/>
+    <link rel="icon" href="images/log.svg">
+    <title>FanHA用户登录</title>
+</head>
+<body onload="getInformation()">
+<div class="container">
+    <div class="forms-container" id="app">
+        <div class="signin-signup">
+            <form action="#" class="sign-in-form">
+                <h2 class="title">登录</h2>
+                <div class="input-field">
+                    <i class="fas fa-user"></i>
+                    <input v-model="user_login.username" type="text" placeholder="用户名" id="input_name"></input>
+                </div>
+                <div class="input-field">
+                    <i class="fas fa-lock"></i>
+                    <input v-model="user_login.password" type="password" placeholder="密码" id="input_password"></input>
+                </div>
+                <div>
+                    <el-checkbox v-model="user_login.check">记住我?</el-checkbox>
+                </div>
+                <input type="submit" value="Login" class="btn solid" @click="login()"></input>
+            </form>
+
+            <form action="#" class="sign-up-form">
+                <h2 class="title">注册</h2>
+                <div class="input-field">
+                    <i class="fas fa-user"></i>
+                    <el-tooltip class="item" effect="dark" content="5-16位用户名仅能包含[A-Z][a-z][0-9][- _]" placement="right" hide-after="0">
+                        <input v-model="user_register.username" type="text" placeholder="用户名" @blur="userNameJust()"></input>
+                    </el-tooltip>
+                </div>
+                <div class="input-field">
+                    <i class="fas fa-lock"></i>
+                    <el-tooltip class="item" effect="dark" content="9-17位密码密码同时包含大小写、数字、字符(,.!@#)" placement="right" hide-after="0">
+                    <input v-model="user_register.password" type="password" placeholder="密码" @blur="passwordJust()"></input>
+                    </el-tooltip>
+                </div>
+                <div class="input-field">
+                    <i class="fas fa-envelope"></i>
+                    <input v-model="user_register.checkCode" type="text" placeholder="验证码"></input>
+                </div>
+                <span><img style="text-align: end" id="checkCodeImg" src="/brand-demo-aiox/User/checkCode">
+                    <a href="#" id="changeImg">看不清？</a>
+              </span>
+                <input type="submit" class="btn" value="注册" @click="register()"></input>
+            </form>
+        </div>
+    </div>
+
+    <div class="panels-container">
+        <div class="panel left-panel">
+            <div class="content">
+                <h3>New here ?</h3>
+                <p>
+                    点击下方按钮，快点加入我们吧！
+                </p>
+                <button class="btn transparent" id="sign-up-btn">
+                    注册
+                </button>
+            </div>
+            <img src="images/log.svg" class="image" alt=""/>
+        </div>
+        <div class="panel right-panel">
+            <div class="content">
+                <h3>One of us ?</h3>
+                <p>
+                    点击下方按钮，快来登录吧！
+                </p>
+                <button class="btn transparent" id="sign-in-btn">
+                    登录
+                </button>
+            </div>
+            <img src="images/register.svg" class="image" alt=""/>
+        </div>
+    </div>
+</div>
+
+<script src="js/app.js"></script>
+<!--导入axios框架 vue2框架 element组件 以及css样式-->
+<script src="js/axios-0.18.0.js"></script>
+<script src="js/vue.js"></script>
+<script src="element-ui/lib/index.js"></script>
+<link rel="stylesheet" href="element-ui/lib/theme-chalk/index.css">
+
+<script>
+    new Vue({
+        el: "#app",
+        methods: {
+            login() {
+                let _this = this;
+                axios({
+                    method: "post",
+                    url: "http://localhost:8080/FanHA-Exam/User/login",
+                    data: _this.user_login
+                }).then(function (resp) {
+                    if (resp.data === "success") {
+                        _this.$message({
+                            message: '登录成功',
+                            type: 'success'});
+                        //等待两秒
+                        setTimeout(function (){
+                            window.location.href="#"
+                        }, 2000);
+
+                    } else {
+                        _this.$message({
+                            message: '账号或密码错误',
+                            type: 'warning'
+                        });
+                        this.user_login.check = false;
+                    }
+                })
+            },
+            register() {
+                if (this.user_register.username === "" || this.user_register.username == null) {
+                    this.$message.error('请输入用户名');
+                    return;
+                } else if(this.user_register.password === "" || this.user_register.password == null) {
+                    this.$message.error('请输入密码');
+                    return;
+                } else if(this.user_register.checkCode === "" || this.user_register.checkCode == null) {
+                    this.$message.error('请输入验证码');
+                    return;
+                }
+                if (!this.usernameRegister){
+                    this.$message.error("用户名仅能包含[A-Z][a-z][0-9][- _] 5-16位");
+                }else if (!this.passwordRegister){
+                    this.$message.error("9-17位密码密码同时包含大小写、数字、字符(,.!@#)");
+                }else {
+                    let _this = this;
+                    axios({
+                        method: "post",
+                        url: "http://localhost:8080/FanHA-Exam/User/register",
+                        data: _this.user_register
+                    }).then(function (resp) {
+                        if (resp.data === "success") {
+                            _this.$message({
+                                message: '注册成功',
+                                type: 'success'
+                            });
+                            _this.user_register.username = '';
+                            _this.user_register.password = '';
+                            _this.user_register.checkCode= '';
+                        } else if (resp.data === "checkCode Fail") {
+                            _this.$message({
+                                message: '验证码错误请重试',
+                                type: 'warning'
+                            });
+                            _this.user_register.checkCode = '';
+                            document.getElementById("checkCodeImg").src = "/FanHA-Exam/User/checkCode?" + new Date().getMilliseconds();
+                        } else {
+                            _this.$message({
+                                message: '注册失败',
+                                type: 'warning'
+                            });
+                        }
+                    })
+                }
+            },
+            userNameJust(){
+                let patten = /[a-zA-Z0-9_]{4,15}/g;
+                if (!patten.test(this.user_register.username))
+                {
+                    this.$message({
+                        message: '用户名仅能包含[A-Z][a-z][0-9][- _] 5-16位',
+                        type: 'warning'
+                    })
+                    this.usernameRegister = false;
+                }else {
+                    this.usernameRegister = true;
+                }
+            },
+            passwordJust(){
+                let patten = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]){8,16}/g;
+                if (!patten.test(this.user_register.password))
+                {
+                    this.$message({
+                        message: '9-17位密码密码同时包含大小写、数字、字符(,.!@#)',
+                        type: 'warning'
+                    })
+                    this.passwordRegister = false;
+                }else {
+                    this.passwordRegister = true;
+                }
+            }
+        },
+
+        data() {
+            return {
+                value: '',
+                usernameRegister : true,
+                passwordRegister : true,
+                username: '',
+                password: '',
+                checkCode: '',
+                user_login: {
+                    username: '',
+                    password: '',
+                    check: false
+                },
+                user_register: {
+                    username: '',
+                    password: '',
+                    checkCode: ''
+                }
+            }
+        }
+
+    })
+    document.getElementById("sign-up-btn").onclick = function () {
+        document.getElementById("checkCodeImg").src = "/FanHA-Exam/User/checkCode?" + new Date().getMilliseconds();
+    }
+    document.getElementById("changeImg").onclick = function () {
+        document.getElementById("checkCodeImg").src = "/FanHA-Exam/User/checkCode?" + new Date().getMilliseconds();
+    }
+    document.getElementById("checkCodeImg").onclick = function () {
+        document.getElementById("checkCodeImg").src = "/FanHA-Exam/User/checkCode?" + new Date().getMilliseconds();
+    }
+    function getInformation(){
+        var arr = document.cookie;
+        window.alert(arr);
+    }
+</script>
+
+</body>
+</html>
