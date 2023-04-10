@@ -9,24 +9,24 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 /**
- * Ìæ»»HttpServlet,¸ù¾İ×îºóÒ»¶ÎÂ·¾¶À´½øĞĞ·½·¨·Ö·¢
- * ·´ÉäµÄÖªÊ¶£¡£¡£¡£¡
+ * æ›¿æ¢HttpServlet,æ ¹æ®æœ€åä¸€æ®µè·¯å¾„æ¥è¿›è¡Œæ–¹æ³•åˆ†å‘
+ * åå°„çš„çŸ¥è¯†ï¼ï¼ï¼ï¼
  */
 
 public class BaseServlet extends HttpServlet {
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        //»ñÈ¡ÇëÇóÂ·¾¶
+        //è·å–è¯·æ±‚è·¯å¾„
         String requestURI = req.getRequestURI();
-        //»ñÈ¡×îºóÒ»¶ÎÂ·¾¶·½·¨Ãû
+        //è·å–æœ€åä¸€æ®µè·¯å¾„æ–¹æ³•å
 
         int index = requestURI.lastIndexOf('/');
-        String methodName = requestURI.substring(index+1); //°üº¬'/'Ç°±Õºó¿ª
+        String methodName = requestURI.substring(index+1); //åŒ…å«'/'å‰é—­åå¼€
 
-        //Ö´ĞĞ·½·¨
-        //»ñÈ¡BrandServlet ×Ö½ÚÂë¶ÔÏóclass
+        //æ‰§è¡Œæ–¹æ³•
+        //è·å–BrandServlet å­—èŠ‚ç å¯¹è±¡class
         Class<? extends BaseServlet> aClass = this.getClass();
-        //»ñÈ¡·½·¨method¶ÔÏó
+        //è·å–æ–¹æ³•methodå¯¹è±¡
         try {
             Method method = aClass.getMethod(methodName, HttpServletRequest.class, HttpServletResponse.class);
             method.invoke(this, req, resp);
