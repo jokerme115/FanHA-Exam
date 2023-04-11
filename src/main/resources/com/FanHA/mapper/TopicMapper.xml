@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.FanHA.mapper.TopicMapper">
+
+    <select id="selectTopic" resultType="com.FanHA.pojo.Topic" parameterType="arraylist">
+        SELECT * FROM topic;
+    </select>
+    <select id="selectOption" resultType="string" parameterType="arraylist">
+        SELECT id from topic_option;
+    </select>
+</mapper>

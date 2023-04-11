@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+  <h1 id="demo"></h1>
+<script>
+  let min = 1;
+  let hour = 0;
+  let second = 0;
+  let time = "00:00:00";
+  let elementById = document.getElementById("demo");
+  translate();
+  setInterval(countDown, 1000);
+  function countDown(){
+    second--;
+    if (hour !== 0 || min !== 0 && second - 1 <= 0){
+      second = 59;
+      min--;
+      if (hour !== 0 && min <= 0){
+        hour--;
+        min = 59;
+        if (hour === 0)
+          time = "00:00:00";
+      }
+    }
+    time = hour.toString().concat(":")+ min.toString().concat(":") + second.toString();
+    elementById.innerText = time;
+  }
+  function translate(){
+    hour = parseInt(min / 60);
+    min %= 60;
+  }
+</script>
+</body>
+</html>

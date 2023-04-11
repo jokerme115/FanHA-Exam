@@ -9,6 +9,10 @@
     <link rel="stylesheet" type="text/css" href="css/card.css">
     <link rel="stylesheet" type="text/css" href="css/subject.css">
     <link rel="stylesheet" type="text/css" href="css/codemirror.css">
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <!-- 引入组件库 -->
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
 </head>
 <body>
 <div id="app">
@@ -21,10 +25,10 @@
     <!--页头以下-->
     <div class="containerbox">
         <div style="background-color: #ffffff; border-bottom: 1px solid #cccccc;">
-            <div class="container" style="padding: 4px;">
+            <div class="container" style="padding: 4px;margin-left: 90px;width: auto">
                 <el-row :gutter="20">
                     <el-col :span="15">
-                        <div style="padding: 4px;">
+                        <div style="padding: 4px; width: 1144px; " >
                             <!--题目-->
                             <div style="text-align: center;">
                                 <h1>{{topic.name}}</h1>
@@ -37,7 +41,8 @@
                             </div>
 
                             <!--题目框-->
-                            <div>
+                            <div class="">
+                            <div  v-for="item in 5" class="chapterBox">
                                 <div class="subjectUnitViewBox">
                                     <div>{{topic.topics.type}}<span
                                             class="subjectPoint">本题{{topic.topics.score}}分</span>
@@ -50,8 +55,8 @@
                                     <!--答案-->
                                     <div style="margin: 8px;">
                                         <div class="wts-select-unit">
-                                            <div v-for="item in topic.topics.top1.options">
-                                                <div style="float: left; margin-left: 20px;">
+                                            <div v-for="item in topic.topics.top1.options" >
+                                                <div style="float: left; margin-left: 20px;" targetid={{topic.topics.top1.id}}>
                                                     <div>{{item[0]}}.</div>
                                                 </div>
                                                 <div>{{item[1]}}</div>
@@ -60,11 +65,10 @@
 
                                         <div class="answerUnitViewBox">
                                             <ul>
-                                                <li v-for="item in topic.topics.top1.options">
+                                                <li v-for="(item, index) in topic.topics.top1.options">
                                                     <label style="cursor: pointer;">
-                                                        {{item[0]}}.<input id={{topic.topics.top1.id}}
-                                                                           style="cursor: pointer;" type="radio"
-                                                                           name={{topic.topics.top1.id}}>
+                                                        {{item[0]}}.<input id={{topic.topics.top1.id}} v-model=topic.topics.top1.select style="cursor: pointer;" type="radio"
+                                                           name={{topic.topics.top1.id}} v-bind:value="index+1">
                                                     </label>
                                                 </li>
                                             </ul>
@@ -73,6 +77,7 @@
                                     </div>
                                 </div>
                             </div>
+                            </div>
                         </div>
                     </el-col>
                     <!-- 题目卡片 -->
@@ -80,11 +85,40 @@
                         <div class="FHA-sidecard" data-spy="affix" data-offset-top="60">
                             <!--标题-->
                             <div class="title">答题卡</div>
-                            <div class="FHA-sidecard-subjects" style="overflow: auto; max-height: 300px;">
                             <!--题目卡-->
+                            <div class="FHA-sidecard-subjects" style="overflow: auto; max-height: 300px;">
+                                <h1>选择题<span class="chapter-info">100分</span></h1>
+                                <ul>
+                                    <li class="FHA-side-subjuct-unit" v-for="i in 25">
+                                        {{i}}
+                                    </li>
+                                </ul>
+                            </div>
                             <!--开始截止时间-->
+                            <div class="btn-group btn-group-justified FHA-sidecard-buttons" style="margin-top: 0; border-top: 1px dashed #ccc;">
+                                <div class="btn-group" role="group">
+                                    <div style="font-size: 12px; color: #999; text-align: center; padding-top: 2%" title="以服务器时间为准">
+                                        开始答题 20:26:28 - 结束答题 20:38:28
+                                    </div>
+                                </div>
+                            </div>
                             <!--倒计时-->
+                            <div class="btn-group btn-group-justified FHA-sidecard-buttons" style="margin-top: 0;" role="group" aria-label="...">
+                                <div class="btn-group" role="group">
+                                    <div class="btn FHA-countdown-title" title="以服务器时间为准" style="text-align: center">
+                                        <span id="countDownTimerBoxId" class="defaut alarm" title="以服务器时间为准">0分36秒</span>
+                                    </div>
+
+                                </div>
+                            </div>
+
                             <!--交卷-->
+                            <div style="text-align: center; padding-top: 3%; font-size: 40%" >
+                            <el-button type="primary">主要按钮</el-button>
+                            </div>
+                            <div>
+                                <h1>{{topic.topics.top1.select}}</h1>
+                            </div>
                         </div>
                     </el-col>
                 </el-row>
@@ -101,11 +135,14 @@
 <script src="element-ui/lib/index.js"></script>
 <link rel="stylesheet" href="element-ui/lib/theme-chalk/index.css">
 <script>
-    new Vue({
+    var vue = new Vue({
         el: "#app",
-        methods: {},
+        methods: {
+
+        },
         data() {
             return {
+                deadline: Date.now() + 1000 * 60 * 60 * 8,
                 topic: {
                     name: "各种题型展示",
                     nums_big: 2,
@@ -120,12 +157,11 @@
                             index: 1,
                             subject: "“举世闻名”中“举”的意思是()，“举重”中“举”的意思是()。",
                             grade: 5,
-                            options: {
-                                option1: ["A", "往上托"],
-                                option2: ["B", "全"],
-                                option3: ["C", "推选"],
-                                option4: ["D", "举动"],
-                            },
+                            select:0,
+                            options: [["A", "往上托"],
+                                ["B", "全"],
+                                ["C", "推选"],
+                                ["D", "举动"],]
                         }
                     }
                 },

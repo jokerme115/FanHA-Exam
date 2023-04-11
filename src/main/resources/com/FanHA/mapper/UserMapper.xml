@@ -4,4 +4,13 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.FanHA.mapper.UserMapper">
 
+    <resultMap id="userMap" type="com.FanHA.pojo.Topic">
+        <id column="id" property="id" />
+        <collection column="index" property="index" />
+        <collection property="title" column="title" />
+
+    </resultMap>
+    <select id="selectByUsername" resultType="com.FanHA.pojo.User">
+
+    </select>
 </mapper>
