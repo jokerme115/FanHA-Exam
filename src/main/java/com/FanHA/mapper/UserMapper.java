@@ -1,9 +1,12 @@
 package com.FanHA.mapper;
 
+import com.FanHA.pojo.Topic;
 import com.FanHA.pojo.User;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+
+import java.util.List;
 
 /**
  * @author HeTao
@@ -24,8 +27,7 @@ public interface UserMapper {
      * @param username 用户名
      * @return User对象
      */
-    @Select("select * from user where username = #{username}")
-    User selectByUsername(String username);
+    List<User> selectByUsername(@Param("username") String username);
 
     /**
      * 添加用户

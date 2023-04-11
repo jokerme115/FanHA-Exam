@@ -1,23 +1,17 @@
 package com.FanHA.util;
 
-import com.FanHA.pojo.Items;
-import com.FanHA.pojo.Topic.Topic;
-import com.FanHA.pojo.Topic.TopicSelect;
+import com.FanHA.pojo.Topic;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.CellType;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -28,7 +22,7 @@ import java.util.List;
 public class BulkImport {
     private String path;
     private String type;
-    private final List<TopicSelect> topics;
+    private final List<Topic> topics;
 
     public BulkImport(String path, String type) throws ClassNotFoundException {
         this.path = path;
@@ -46,7 +40,7 @@ public class BulkImport {
             int lastRowNum = sheetAt.getLastRowNum();
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss:SSS");
 
-            for (int i = 0; i < lastRowNum; i++) {
+            for (int i = 0; i <= lastRowNum; i++) {
                 HSSFRow row = sheetAt.getRow(i);
                 if (row.getCell(0) == null) continue;
 
@@ -63,7 +57,7 @@ public class BulkImport {
                 int answer = (int) row.getCell(5).getNumericCellValue();
                 String Answer = row.getCell(answer).getStringCellValue();
 
-                TopicSelect topicSelect = new TopicSelect(title, 4, format.format(System.currentTimeMillis()), options, Answer);
+                Topic topicSelect = new Topic(title, 4, format.format(System.currentTimeMillis()), options, Answer);
 
                 topics.add(topicSelect);
             }
@@ -72,11 +66,23 @@ public class BulkImport {
         }
     }
 
-    public static void main(String[] args) throws ClassNotFoundException {
-        BulkImport select = new BulkImport("C:\\Users\\F Sweet\\Desktop\\demo.xls", "Select");
-        select.Bulk();
+    public List<Topic> getTopics() {
+        return topics;
+    }
 
-        for (TopicSelect topic : select.topics) System.out.println(topic);
+    public static void main(String[] args) throws ClassNotFoundException {
+        BulkImport select = new BulkImport("C:\\Users\\15351\\Desktop\\test.xls", "Select");
+        select.Bulk();
+        int count = 0;
+        for (Topic topic : select.topics) {
+            System.out.print(++count+".题目信息:");
+            System.out.println(topic);
+            System.out.print(count+".选项信息:");
+            System.out.println(Arrays.toString(topic.getOptions()));
+            System.out.print(count+".答案信息:");
+            System.out.println(topic.getAnswer());
+            System.out.println("--------------------");
+        }
 
     }
 
