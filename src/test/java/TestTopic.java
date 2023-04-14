@@ -34,7 +34,10 @@ public class TestTopic {
                  format.format(new Date(System.currentTimeMillis())), new String[]{"往上托", "全", "推动", "举动"}, "往上拖");
         Topic topicSelect2 = new Topic("A: hover said what kind of state in the following text hyperlinks?", 4,
                 format.format(new Date(System.currentTimeMillis())), new String[]{"The mouse click", "The mouse without", "The mouse on", "After the visit"}, "The mouse on");
-        Items<Topic> items = new Items<>("select", 10, 2, new Topic[]{topicSelect1, topicSelect2});
+        List<Topic> list = new ArrayList<>();
+        list.add(topicSelect1);
+        list.add(topicSelect2);
+        Items<Topic> items = new Items<>("item1","select", 10, 2, list);
         paper = new Paper("测试用例", 10, 1, 2, 10, new Items[]{items});
         System.out.println(paper);
         System.out.println(items);
@@ -130,4 +133,44 @@ public class TestTopic {
             System.out.println("--------------------");
         }
     }
+    @Test
+    public void TestSelectTopicByTitle(){
+        TopicServiceImpl topicService = new TopicServiceImpl();
+        List<Topic> topics = topicService.selectTopicByTitle("A");
+        System.out.println(topics);
+
+    }
+    @Test
+    public void TestDeleteTopicById(){
+        int id = 25;
+        TopicServiceImpl topicService = new TopicServiceImpl();
+        topicService.deleteTopicById(id);
+    }
+    @Test
+    public void deleteTitleByIds(){
+        int[] ids1 = {26, 27};
+        TopicServiceImpl topicService = new TopicServiceImpl();
+        topicService.deleteTopicByIds(ids1);
+    }
+    @Test
+    public void getTopicByIds(){
+        int[] ids = {28,29};
+        TopicServiceImpl topicService = new TopicServiceImpl();
+        List<Topic> topicByIds = topicService.getTopicByIds(ids);
+
+        for (Topic topic : topicByIds)
+            System.out.println(topic);
+    }
+    @Test
+    public void createItem(){
+        int[] ids = {28,29,30,31,32,33};
+        String name = "testItems";
+        String type = "select";
+        int totalNums = ids.length;
+        double score = 60;
+
+        TopicServiceImpl topicService = new TopicServiceImpl();
+        topicService.insertItems(name, type, score, totalNums, ids);
+    }
+
 }

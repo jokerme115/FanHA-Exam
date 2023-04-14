@@ -1,4 +1,4 @@
-package com.FanHA.pojo.Topic;
+package com.FanHA.pojo.Topic1;
 
 import com.FanHA.pojo.Topic;
 
@@ -9,7 +9,9 @@ import com.FanHA.pojo.Topic;
 public class TopicSelect extends Topic {
     private String[] options;//选项
     private String answer;//答案
+    public TopicSelect(){
 
+    }
     public TopicSelect(String title, int index, String data) {
         super(title, index, data);
     }
@@ -34,5 +36,8 @@ public class TopicSelect extends Topic {
 
     public void setAnswer(String answer) {
         this.answer = answer;
+    }
+    public void print(String string){
+        System.out.println(string);
     }
 }

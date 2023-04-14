@@ -1,6 +1,5 @@
 package com.FanHA.mapper;
 
-import com.FanHA.pojo.Topic;
 import com.FanHA.pojo.User;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;

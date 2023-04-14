@@ -26,7 +26,7 @@ public class BulkImport {
 
     public BulkImport(String path, String type) throws ClassNotFoundException {
         this.path = path;
-        this.type = "com.FanHA.pojo.Topic." + "Topic" + type;
+        this.type = "com.FanHA.pojo.Topic1.Topic." + "Topic" + type;
         topics = new ArrayList<>();
     }
 
