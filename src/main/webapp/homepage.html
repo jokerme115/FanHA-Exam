@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>FanHA exam</title>
+</head>
+<body>
+<!--???自适应布局-->
+<div id="app">
+    <!--头部-->
+    <el-container>
+        <el-header>
+            <div>
+                <!--导航菜单-->
+                <el-menu :default-active="activeIndex" mode="horizontal" text-color="black"
+                         @select="handleSelect">
+                    <el-menu-item index="1">logo</el-menu-item>
+                    <el-menu-item index="2"><a href="#" style="padding-left: 6ex" target="_blank">试卷管理</a>
+                    </el-menu-item>
+                    <el-menu-item index="3"><a href="#" target="_blank">答题室</a></el-menu-item>
+                    <el-menu-item index="4"><a href="#" target="_blank">成绩统计</a></el-menu-item>
+                    <el-menu-item index="5" style="padding-left: 90ex">头像</el-menu-item>
+                    <el-menu-item index="6"><a href="#" target="_blank">我的</a></el-menu-item>
+                </el-menu>
+            </div>
+        </el-header>
+        <el-container>
+            <el-main>
+                <!--主体-->
+                <!--查询窗口-->
+                <!--???-->
+                <div style="text-align: center" content="150px">
+                    <template>
+                        <div>
+                            <el-form style="margin:10px" label-position="center">
+                                <el-form-item>
+                                    <el-autocomplete placeholder="请输入内容" v-model="state1"
+                                                     :fetch-suggestions="querySearch"
+                                                     @select="handleSelect">
+                                    </el-autocomplete>
+                                    <!--搜索按钮-->
+                                    <el-button icon="el-icon-search" circle></el-button>
+                                </el-form-item>
+                            </el-form>
+                        </div>
+                    </template>
+                    <script>
+                        export default {
+                            data() {
+                                return {
+                                    question: [],
+                                    state1: ''
+                                };
+                            },
+                            methods: {
+                                querySearch(queryString, cb) {
+                                    var restaurants = this.question;
+                                    var results = queryString ? question.filter(this.createFilter(queryString)) : question;
+                                    // 调用 callback 返回建议列表的数据
+                                    cb(results);
+                                },
+                                createFilter(queryString) {
+                                    return (question) => {
+                                        return (question.value.toLowerCase().indexOf(queryString.toLowerCase()) === 0);
+                                    };
+                                },
+                                loadAll() {
+                                    return [];
+                                },
+                                handleSelect(item) {
+                                    console.log(item);
+                                }
+                            },
+                            mounted() {
+                                this.question = this.loadAll();
+                            }
+                        }
+                    </script>
+                </div>
+                <!--首页-->
+                <div>
+                    <div>
+                        <!--首页——项目选择-->
+                        <!--???-->
+                        <div style="align-self: center">
+                            <ul class="FHA-hometype-ul">
+                                <li targetid="examAll" class="FHA-hometype-active">全部<span style=""
+                                                                                             class="badge">5</span></li>
+                                <li targetid="2c902a8d702e542901702e85f6ad0011" class="FHA-hometype-active">
+                                    题型演示<span style=""
+                                                  class="badge">5</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!--首页——分类考场-->
+                    <div class="continer">
+                        <!--全部——系统调查问卷-->
+                        <ul class="wts-subjects">
+                            <li id="examAll" class="active">
+                                <!--首页——调查问卷-->
+                                <div class="col-md-4" style="padding-left: 8px;padding-right: 8px">
+                                    <div class="panel panel-default">
+                                        <div class="panel-body">
+                                            <div class="media" style="height:185px;overflow:hidden">
+                                                <div style="text-align: center; border-bottom: 1px dashed #ccc; margin-bottom: 8px; padding-bottom: 0px;">
+                                                    <!--问卷标志-->
+                                                    <img alt=""
+                                                         src="http://wts.demo.wcpknow.com:80/text/img/questTag.png"
+                                                         style="width: 64px; height: 64px; position: absolute; left: 8px; top: 0px;">
+                                                    <div class="side_unit_info">永久有效</div>
+                                                    <div class="doc_node_title_box"
+                                                         style="font-size: 16px; white-space: nowrap;">
+                                                        系统使用调查问卷
+                                                    </div>
+                                                </div>
+                                                <!--卡片图片-->
+                                                <div class="pull-right">
+                                                    <img alt="答题室"
+                                                         style="width: 96px; height: 96px; margin-bottom: 8px; border-radius: 3px;"
+                                                         src="image/wyb.png">
+                                                    <div class="media-body">
+                                                        <div style="margin-left: 4px;" class="pull-left">
+                                                            <div class="side_unit_info">
+                                                                类型：<code>问卷模式</code>
+                                                            </div>
+                                                            <div class="side_unit_info">
+                                                                条件： / 任何人员
+                                                            </div>
+                                                            <div class="side_unit_info">分类：题型演示</div>
+                                                            <div class="side_unit_info">
+                                                                状态：<span style="margin-right: 10px; font-size: 12px;"
+                                                                           class="label label-success">开始答题</span>
+                                                            </div>
+                                                            <div style="padding-top: 20px;">
+                                                                <div class="btn-group btn-group-justified" role="group"
+                                                                     aria-label="...">
+                                                                    <div class="btn-group  btn-group-xs" role="group">
+                                                                        <a href="exam/roompage.do?roomid=2c91808c81225f9801812270d4f2000c"
+                                                                           type="button" title="0/0"
+                                                                           class="btn btn-info">进入问卷(0/0) </a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+
+                                    <!--全部——逻辑题学习-->
+                                    <!--全部——智力测试-考试-->
+                                    <!--全部——演示题-练习-->
+                                    <!--全部——演示题-考试-->
+
+                            </li>
+                        </ul>
+                    </div>
+            </el-main>
+        </el-container>
+        <el-footer>Footer
+
+            <!--底部-->
+            <div class="foot">
+                FHA在线答题系统 -V 1.3.2
+            </div>
+        </el-footer>
+    </el-container>
+
+</div>
+
+
+<script src="js/app.js"></script>
+<!--导入axios框架 vue2框架 element组件 以及css样式-->
+<script src="js/axios-0.18.0.js"></script>
+<script src="js/vue.js"></script>
+<script src="element-ui/lib/index.js"></script>
+<link rel="stylesheet" href="element-ui/lib/theme-chalk/index.css">
+<script>
+    var app = new Vue({
+        el: "#app"
+    })
+</script>
+
+</body>
+</html>
