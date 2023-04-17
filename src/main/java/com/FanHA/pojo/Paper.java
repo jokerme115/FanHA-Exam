@@ -1,5 +1,6 @@
 package com.FanHA.pojo;
 
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 
 /**
@@ -8,15 +9,16 @@ import java.util.Arrays;
  **/
 public class Paper {
     private String name;
-    private int score;
+    private String date;
+    private double score;
     private int numsType;//类型数量
     private int numsTotal;//题目总数
     private int time;//答题时间
     private Items<?>[] items;
 
 
-    public Paper(String name, int score, int numsType, int numsTotal, int time, Items<?>[] items) {
-        System.out.println(2);
+    public Paper(String name, double score, int numsType, int numsTotal, int time, Items<?>[] items) {
+        this.date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss:SSS").format(System.currentTimeMillis());
         this.name = name;
         this.score = score;
         this.numsType = numsType;
@@ -33,7 +35,7 @@ public class Paper {
         this.name = name;
     }
 
-    public int getScore() {
+    public double getScore() {
         return score;
     }
 
@@ -73,10 +75,23 @@ public class Paper {
         this.items = items;
     }
 
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public void setScore(double score) {
+        this.score = score;
+    }
+
     @Override
     public String toString() {
         return "Paper{" +
                 "name='" + name + '\'' +
+                ", date='" + date + '\'' +
                 ", score=" + score +
                 ", numsType=" + numsType +
                 ", numsTotal=" + numsTotal +

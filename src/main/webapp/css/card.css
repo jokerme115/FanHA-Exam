@@ -81,22 +81,22 @@
 	text-align: center;
 	width: 26px;
 	overflow: hidden;
-	background-color: #f9baba;
+	background-color: #d6ecf0;
 	color: #666;
-	border: 1px solid #d13133;
+	border: 1px solid #44cef6;
 	cursor: pointer;
 }
 
 .FHA-sidecard li:HOVER {
-	border: 1px solid #d13133;
+	border: 1px solid #1685e9;
 	color: #ffffff;
-	background-color: #fb7979;
+	background-color: #44cef6;
 }
 
 .FHA-sidecard .active {
-	background-color: #d13133;
+	background-color: #1685e9;
 	color: #ffffff;
-	border: 1px solid #d13133;
+	border: 1px solid #44cef6;
 }
 
 .FHA-sidecard-split {
@@ -106,7 +106,7 @@
 }
 
 .subjectUnitViewBox.active {
-	border: 1px solid #d13133;
+	border: 1px solid #44cef6;
 }
 
 .FHA-sidecard-buttons {
@@ -124,7 +124,7 @@
 
 .FHA-countdown-title .alarm {
 	font-size: 26px;
-	color: #d13133;
+	color: #1685a9;
 }
 
 .FHA-paper-forms h2 {

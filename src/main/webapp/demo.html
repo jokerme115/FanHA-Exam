@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+  <h1 id="demo"></h1>
+  <el-statistic :value="deadline2" time-indices title="商品降价">
+      <template slot="suffix"> 抢购即将开始 </template>
+  </el-statistic>
+  <script src="js/vue.js"></script>
+  <script src="element-ui/lib/index.js"></script>
+  <link rel="stylesheet" href="element-ui/lib/theme-chalk/index.css">
+<script>
+  let min = 1;
+  let hour = 0;
+  let second = 0;
+  let time = "00:00:00";
+  let demo = min * 60;
+  let elementById = document.getElementById("demo");
+
+  setInterval(countDown, 1000);
+  function countDown(){
+      if (demo >= 0){
+          translate(demo);
+          demo--;
+      }
+      time = hour.toString() + ":" + min.toString() + ":" + second.toString();
+      elementById.innerText = time;
+  }
+  function translate(demo){
+    second = demo
+    min = parseInt(second /60);
+  second %= 60;
+    hour = parseInt(min / 60);
+    min %= 60;
+  }
+</script>
+</body>
+</html>

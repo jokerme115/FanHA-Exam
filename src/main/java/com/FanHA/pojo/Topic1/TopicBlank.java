@@ -1,4 +1,6 @@
-package com.FanHA.pojo.Topic;
+package com.FanHA.pojo.Topic1;
+
+import com.FanHA.pojo.Topic;
 
 import java.util.Arrays;
 
@@ -6,8 +8,11 @@ import java.util.Arrays;
  * @author HeTao
  * @data 2023/4/10
  **/
-public class TopicBlank extends Topic{
+public class TopicBlank extends Topic {
     private String[] answer;
+
+    public TopicBlank() {
+    }
 
     public TopicBlank(String title, int index, String data) {
         super(title, index, data);

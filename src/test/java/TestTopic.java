@@ -1,17 +1,23 @@
+import com.FanHA.mapper.TopicMapper;
 import com.FanHA.pojo.Items;
 import com.FanHA.pojo.Paper;
-import com.FanHA.pojo.Topic.TopicSelect;
+import com.FanHA.pojo.Topic;
+import com.FanHA.service.impl.TopicServiceImpl;
+import com.FanHA.util.SqlSessionFactoryUtils;
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.CellType;
 import org.junit.Test;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -23,13 +29,16 @@ public class TestTopic {
     @Test
     public void testPaper(){
         Paper paper;
-        SimpleDateFormat format = new SimpleDateFormat("YYYY-MM-dd HH:mm:ss:SSS");
-        TopicSelect topicSelect1 = new TopicSelect("°∞æŸ ¿Œ≈√˚°±÷–°∞æŸ°±µƒ“‚Àº «()£¨°∞æŸ÷ÿ°±÷–°∞æŸ°±µƒ“‚Àº «()°£", 4,
-                 format.format(new Date(System.currentTimeMillis())), new String[]{"Õ˘…œÕ–", "»´", "Õ∆∂Ø", "æŸ∂Ø"}, "Õ˘…œÕœ");
-        TopicSelect topicSelect2 = new TopicSelect("A: hover said what kind of state in the following text hyperlinks?", 4,
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss:SSS");
+        Topic topicSelect1 = new Topic("‚Äú‰∏æ‰∏ñÈóªÂêç‚Äù‰∏≠‚Äú‰∏æ‚ÄùÁöÑÊÑèÊÄùÊòØ()Ôºå‚Äú‰∏æÈáç‚Äù‰∏≠‚Äú‰∏æ‚ÄùÁöÑÊÑèÊÄùÊòØ()„ÄÇ", 4,
+                 format.format(new Date(System.currentTimeMillis())), new String[]{"ÂæÄ‰∏äÊâò", "ÂÖ®", "Êé®Âä®", "‰∏æÂä®"}, "ÂæÄ‰∏äÊãñ");
+        Topic topicSelect2 = new Topic("A: hover said what kind of state in the following text hyperlinks?", 4,
                 format.format(new Date(System.currentTimeMillis())), new String[]{"The mouse click", "The mouse without", "The mouse on", "After the visit"}, "The mouse on");
-        Items<TopicSelect> items = new Items<>("select", 10, 2, new TopicSelect[]{topicSelect1, topicSelect2});
-        paper = new Paper("≤‚ ‘”√¿˝", 10, 1, 2, 10, new Items[]{items});
+        List<Topic> list = new ArrayList<>();
+        list.add(topicSelect1);
+        list.add(topicSelect2);
+        Items<Topic> items = new Items<>("item1","select", 10, 2, list);
+        paper = new Paper("ÊµãËØïÁî®‰æã", 10, 1, 2, 10, new Items[]{items});
         System.out.println(paper);
         System.out.println(items);
         System.out.println(topicSelect1);
@@ -37,30 +46,23 @@ public class TestTopic {
     }
     @Test
     public void testImport(){
-        String rootPath = "C:\\Users\15351\\Desktop";
-        String importOrderDTO = "";
-        Items<TopicSelect> items;
-
-
-        final String SEPA = File.separator;
-        List<TopicSelect> topicSelects = new ArrayList<>();
+        List<Topic> topicSelects = new ArrayList<>();
 
         try {
             String path = "F:\\test.xls";
-            path = java.net.URLDecoder.decode(path, "utf-8");
+            path = java.net.URLDecoder.decode(path, StandardCharsets.UTF_8);
             FileInputStream inputStream = new FileInputStream(path);
             HSSFWorkbook wb = new HSSFWorkbook(inputStream);
             HSSFSheet HSSfSheet = wb.getSheetAt(0);
-            int lastRowNum = HSSfSheet.getLastRowNum();
-            SimpleDateFormat format = new SimpleDateFormat("YYYY-MM-dd HH:mm:ss:SSS");
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss:SSS");
 
             for (int i = 0; i <= 11; i++){
-                //ªÒ»°––
+                //Ëé∑ÂèñË°å
                 HSSFRow row = HSSfSheet.getRow(i);
-                //ªÒ»° ˝æ›
+                //Ëé∑ÂèñÊï∞ÊçÆ
                 if (row.getCell(0) == null) continue;
 
-                //…Ë÷√±Ì∏Ò¿‡–Õ
+                //ËÆæÁΩÆË°®Ê†ºÁ±ªÂûã
                 for (int j = 0; j < 5; j++)
                     row.getCell(i).setCellType(CellType.STRING);
                 String title = row.getCell(0).getStringCellValue();
@@ -73,15 +75,102 @@ public class TestTopic {
 
                 int answer = (int) row.getCell(5).getNumericCellValue();
                 String Answer = row.getCell(answer).getStringCellValue();
-                TopicSelect topicSelect =  new TopicSelect(title, 4 , date, options, Answer);
+                Topic topicSelect =  new Topic(title, 4 , date, options, Answer);
                 topicSelects.add(topicSelect);
-                TopicSelect[] array = topicSelects.toArray(new TopicSelect[0]);
+                Topic[] array = topicSelects.toArray(new Topic[0]);
 
-                for (TopicSelect e : array)
+                for (Topic e : array)
                     System.out.println(e);
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
+    @Test
+    public void function2(){
+        String title = "A: hover said what kind of state in the following text hyperlinks?";
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss:SSS");
+        String[] string = new String[]{"The mouse click","The mouse without", "The mouse on", "After the visit"};
+        String answer = "The mouse on";
+        Topic topic = new Topic(title, 4, format.format(System.currentTimeMillis()), string, answer);
+        SqlSessionFactory sqlSessionFactory = SqlSessionFactoryUtils.getSqlSessionFactory();
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        TopicMapper mapper = sqlSession.getMapper(TopicMapper.class);
+        mapper.insertTopic(topic);
+        sqlSession.commit();
+        int topicId = mapper.getTopicId(topic);
+        topic.setId(topicId);
+        mapper.insertOption(topic);
+        sqlSession.commit();
+        sqlSession.close();
+    }
+    @Test
+    public void TestTopicService(){
+        String path = "C:\\Users\\15351\\Desktop\\test.xls";
+        String type = "select";
+        TopicServiceImpl topicServiceImpl = new TopicServiceImpl();
+        topicServiceImpl.insertTopic(path, type);
+    }
+    @Test
+    public void TestGetTopic(){
+        SqlSessionFactory sqlSessionFactory = SqlSessionFactoryUtils.getSqlSessionFactory();
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        TopicMapper mapper = sqlSession.getMapper(TopicMapper.class);
+        List<Topic> topics = mapper.selectTopic();
+        for (Topic topic : topics) {
+            List<String> strings = mapper.selectOption(topic.getId());
+            String[] array = strings.toArray(new String[0]);
+            topic.setOptions(array);
+        }
+
+        for (Topic topic : topics) {
+            System.out.print(topic.getId()+".È¢òÁõÆ‰ø°ÊÅØ:");
+            System.out.println(topic);
+            System.out.print(topic.getId()+".ÈÄâÈ°π‰ø°ÊÅØ:");
+            System.out.println(Arrays.toString(topic.getOptions()));
+            System.out.print(topic.getId()+".Á≠îÊ°à‰ø°ÊÅØ:");
+            System.out.println(topic.getAnswer());
+            System.out.println("--------------------");
+        }
+    }
+    @Test
+    public void TestSelectTopicByTitle(){
+        TopicServiceImpl topicService = new TopicServiceImpl();
+        List<Topic> topics = topicService.selectTopicByTitle("A");
+        System.out.println(topics);
+
+    }
+    @Test
+    public void TestDeleteTopicById(){
+        int id = 25;
+        TopicServiceImpl topicService = new TopicServiceImpl();
+        topicService.deleteTopicById(id);
+    }
+    @Test
+    public void deleteTitleByIds(){
+        int[] ids1 = {26, 27};
+        TopicServiceImpl topicService = new TopicServiceImpl();
+        topicService.deleteTopicByIds(ids1);
+    }
+    @Test
+    public void getTopicByIds(){
+        int[] ids = {28,29};
+        TopicServiceImpl topicService = new TopicServiceImpl();
+        List<Topic> topicByIds = topicService.getTopicByIds(ids);
+
+        for (Topic topic : topicByIds)
+            System.out.println(topic);
+    }
+    @Test
+    public void createItem(){
+        int[] ids = {28,29,30,31,32,33};
+        String name = "testItems";
+        String type = "select";
+        int totalNums = ids.length;
+        double score = 60;
+
+        TopicServiceImpl topicService = new TopicServiceImpl();
+        topicService.insertItems(name, type, score, totalNums, ids);
+    }
+
 }
