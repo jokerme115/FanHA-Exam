@@ -8,7 +8,7 @@ import java.util.List;
  * @author HeTao
  * @data 2023/4/10
  **/
-public class Items <T>{
+public class Items{
     private int id;//题目id
     private String name;//题目名字
     private String date;//创建时间
@@ -16,6 +16,18 @@ public class Items <T>{
     private double score;//大题分数
     private int totalNums;//小题数量
     private List<Topic> topics;//题目集
+
+    public Items() {
+    }
+
+    public Items(int id, String name, String date, String type, double score, int totalNums) {
+        this.id = id;
+        this.name = name;
+        this.date = date;
+        this.type = type;
+        this.score = score;
+        this.totalNums = totalNums;
+    }
 
     public Items(String name, String type, double score, int totalNums, List<Topic> topics) {
         this.date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss:SSS").format(System.currentTimeMillis());
@@ -48,6 +60,9 @@ public class Items <T>{
 
     public void setScore(double score) {
         this.score = score;
+    }
+    public void setScore(String score) {
+        this.score = Double.parseDouble(score) ;
     }
 
     public int getTotalNums() {

@@ -2,29 +2,53 @@ package com.FanHA.pojo;
 
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * @author HeTao
  * @data 2023/4/8
  **/
 public class Paper {
+    int id;
     private String name;
     private String date;
     private double score;
-    private int numsType;//类型数量
-    private int numsTotal;//题目总数
+    private int typeNums;//类型数量
+    private int totalNums;//题目总数
     private int time;//答题时间
-    private Items<?>[] items;
+    private List<Items> items;
 
 
-    public Paper(String name, double score, int numsType, int numsTotal, int time, Items<?>[] items) {
-        this.date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss:SSS").format(System.currentTimeMillis());
+    public Paper() {
+    }
+
+    public Paper(int id, String name, String date, double score, int typeNums, int totalNums, int time) {
+        this.id = id;
         this.name = name;
+        this.date = date;
         this.score = score;
-        this.numsType = numsType;
-        this.numsTotal = numsTotal;
+        this.typeNums = typeNums;
+        this.totalNums = totalNums;
+        this.time = time;
+    }
+
+    public Paper(int id, String name, String date, double score, int typeNums, int totalNums, int time, List<Items> items) {
+        this.id = id;
+        this.name = name;
+        this.date = date;
+        this.score = score;
+        this.typeNums = typeNums;
+        this.totalNums = totalNums;
         this.time = time;
         this.items = items;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -43,20 +67,20 @@ public class Paper {
         this.score = score;
     }
 
-    public int getNumsType() {
-        return numsType;
+    public int getTypeNums() {
+        return typeNums;
     }
 
-    public void setNumsType(int numsType) {
-        this.numsType = numsType;
+    public void setTypeNums(int typeNums) {
+        this.typeNums = typeNums;
     }
 
-    public int getNumsTotal() {
-        return numsTotal;
+    public int getTotalNums() {
+        return totalNums;
     }
 
-    public void setNumsTotal(int numsTotal) {
-        this.numsTotal = numsTotal;
+    public void setTotalNums(int totalNums) {
+        this.totalNums = totalNums;
     }
 
     public int getTime() {
@@ -67,11 +91,11 @@ public class Paper {
         this.time = time;
     }
 
-    public Items<?>[] getItems() {
+    public List<Items> getItems() {
         return items;
     }
 
-    public void setItems(Items<?>[] items) {
+    public void setItems(List<Items> items) {
         this.items = items;
     }
 
@@ -90,13 +114,14 @@ public class Paper {
     @Override
     public String toString() {
         return "Paper{" +
-                "name='" + name + '\'' +
+                "id=" + id +
+                ", name='" + name + '\'' +
                 ", date='" + date + '\'' +
                 ", score=" + score +
-                ", numsType=" + numsType +
-                ", numsTotal=" + numsTotal +
+                ", typeNums=" + typeNums +
+                ", totalNums=" + totalNums +
                 ", time=" + time +
-                ", items=" + Arrays.toString(items) +
+                ", items=" + items +
                 '}';
     }
 }

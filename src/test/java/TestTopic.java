@@ -37,8 +37,11 @@ public class TestTopic {
         List<Topic> list = new ArrayList<>();
         list.add(topicSelect1);
         list.add(topicSelect2);
-        Items<Topic> items = new Items<>("item1","select", 10, 2, list);
-        paper = new Paper("测试用例", 10, 1, 2, 10, new Items[]{items});
+        List<Items> items1 = new ArrayList<>();
+
+        Items items = new Items("item1","select", 10, 2, list);
+        items1.add(items);
+        paper = new Paper(1,"测试用例", "0" ,10, 1, 2, 10, items1);
         System.out.println(paper);
         System.out.println(items);
         System.out.println(topicSelect1);
@@ -163,14 +166,48 @@ public class TestTopic {
     }
     @Test
     public void createItem(){
-        int[] ids = {28,29,30,31,32,33};
-        String name = "testItems";
+        int[] ids = {29,30,31,32,33,34};
+        String name = "testItems2";
         String type = "select";
         int totalNums = ids.length;
-        double score = 60;
+        double score = 65;
 
         TopicServiceImpl topicService = new TopicServiceImpl();
         topicService.insertItems(name, type, score, totalNums, ids);
     }
+    @Test
+    public void testSelectItems(){
+        SqlSessionFactory sqlSessionFactory = SqlSessionFactoryUtils.getSqlSessionFactory();
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        TopicMapper mapper = sqlSession.getMapper(TopicMapper.class);
+        Items items = mapper.selectItemsById(7);
+        System.out.println(items);
 
+    }
+    @Test
+    public void createPaper(){
+        int[] ids = {6, 7};
+        String name = "testPaper";
+        int time = 60;
+
+        TopicServiceImpl topicService = new TopicServiceImpl();
+        topicService.insertPaper(name, time, ids);
+
+    }
+    @Test
+    public void selectPaper(){
+        TopicServiceImpl topicService = new TopicServiceImpl();
+        Paper paper = topicService.selectPaper("testPaper");
+        //没有选项！！！
+        System.out.println(paper);
+    }
+    @Test
+    public void selectAllItemsFromPaper(){
+        SqlSessionFactory sqlSessionFactory = SqlSessionFactoryUtils.getSqlSessionFactory();
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        TopicMapper mapper = sqlSession.getMapper(TopicMapper.class);
+
+        int[] ints = mapper.selectAllItemsFromPaper(1);
+        System.out.println(Arrays.toString(ints));
+    }
 }
