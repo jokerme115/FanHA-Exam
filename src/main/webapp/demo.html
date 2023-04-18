@@ -3,39 +3,90 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link href="css/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/direct.css">
 </head>
 <body>
-  <h1 id="demo"></h1>
-  <el-statistic :value="deadline2" time-indices title="商品降价">
-      <template slot="suffix"> 抢购即将开始 </template>
-  </el-statistic>
-  <script src="js/vue.js"></script>
-  <script src="element-ui/lib/index.js"></script>
-  <link rel="stylesheet" href="element-ui/lib/theme-chalk/index.css">
-<script>
-  let min = 1;
-  let hour = 0;
-  let second = 0;
-  let time = "00:00:00";
-  let demo = min * 60;
-  let elementById = document.getElementById("demo");
+<div id="app">
+    <!--导航栏-->
+    <div class="container_direct">
+        <nav>
+            <ul>
+                <li>试卷管理</li>
+                <li>答题室</li>
+                <li>成绩统计</li>
+                <li>我的</li>
+            </ul>
+        </nav>
+    </div>
+    <!--搜素框-->
+    <!--卡片-->
+    <div class="container">
+        <ul class="wts-subjects" style="padding-top: 20px">
+            <li id="examAll" class="active">
+                <!-- 首页--分类考场中的考场展示 -->
+                <div class="col-md-4" style="padding-left: 8px; padding-right: 8px;" v-for="i in 25">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <div class="media" style="height: 185px; overflow: hidden;">
+                                <div style="text-align: center; border-bottom: 1px dashed #ccc; margin-bottom: 8px; padding-bottom: 0px;">
+                                    <!--问卷标志-->
+                                    <img alt="" src="http://wts.demo.wcpknow.com:80/text/img/questTag.png"
+                                         style="width: 64px; height: 64px; position: absolute; left: 8px; top: 0px;">
+                                    <div class="side_unit_info">永久有效</div>
+                                    <div class="doc_node_title_box" style="font-size: 16px; white-space: nowrap;">
+                                        系统使用调查问卷
+                                    </div>
+                                </div>
+                                <div class="pull-right" style="float: right;">
+                                    <img alt="答题室"
+                                         style="width: 96px; height: 96px; margin-bottom: 8px; border-radius: 3px;"
+                                         src="image/wyb.png">
+                                </div>
+                                <div class="media-body">
+                                    <div style="margin-left: 4px;" class="pull-left">
+                                        <div class="side_unit_info">
+                                            类型：
+                                            <code>问卷模式</code>
+                                        </div>
+                                        <div class="side_unit_info">
+                                            条件：/ 任何人员
+                                        </div>
+                                        <div class="side_unit_info">分类：题型演示</div>
+                                        <div class="side_unit_info">
+                                            状态：
+                                            <span style="margin-right: 10px; font-size: 12px;"
+                                                  class="label label-success">开始答题 </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div style="padding-top: 20px;">
+                                    <div class="btn-group btn-group-justified" role="group" aria-label="...">
+                                        <div class="btn-group  btn-group-xs" role="group">
+                                            <a href="exam/roompage.do?roomid=2c91808c81225f9801812270d4f2000c"
+                                               type="button"
+                                               title="0/0" class="btn btn-info">
+                                                进入问卷(0/0) </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <!--页脚-->
+</div>
+<script src="js/vue.js"></script>
+<script src="element-ui/lib/index.js"></script>
+<link rel="stylesheet" href="element-ui/lib/theme-chalk/index.css">
 
-  setInterval(countDown, 1000);
-  function countDown(){
-      if (demo >= 0){
-          translate(demo);
-          demo--;
-      }
-      time = hour.toString() + ":" + min.toString() + ":" + second.toString();
-      elementById.innerText = time;
-  }
-  function translate(demo){
-    second = demo
-    min = parseInt(second /60);
-  second %= 60;
-    hour = parseInt(min / 60);
-    min %= 60;
-  }
+<script>
+    new Vue({
+        el: "#app",
+    })
 </script>
 </body>
 </html>

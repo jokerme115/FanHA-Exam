@@ -10,10 +10,11 @@
     <!--头部-->
     <el-container>
         <el-header>
-            <div>
+            <div v-for="(i,index) in 25">
+
                 <!--导航菜单-->
                 <el-menu :default-active="activeIndex" mode="horizontal" text-color="black"
-                         @select="handleSelect">
+                         @select="handleSelect">{{index}}
                     <el-menu-item index="1">logo</el-menu-item>
                     <el-menu-item index="2"><a href="#" style="padding-left: 6ex" target="_blank">试卷管理</a>
                     </el-menu-item>
