@@ -3,13 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="css/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/direct.css">
+    <link rel="stylesheet" href="css/shell.css">
+    <!-- 导入字体图标库 -->
+    <link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.css">
+
 </head>
 <body>
 <div id="app">
     <!--导航栏-->
     <div class="container_direct">
+            <img src="image/wyb.png" height="11" width="11"/>
         <nav>
             <ul>
                 <li>试卷管理</li>
@@ -20,6 +26,13 @@
         </nav>
     </div>
     <!--搜素框-->
+    <div class="shell" style="margin: auto; width: 40%">
+        <input type="text" placeholder="Search">
+        <a href="#" >
+            <i class="fa fa-hand-o-right"></i>
+            <i class="fa fa-search"></i>
+        </a>
+    </div>
     <!--卡片-->
     <div class="container">
         <ul class="wts-subjects" style="padding-top: 20px">
@@ -86,6 +99,11 @@
 <script>
     new Vue({
         el: "#app",
+        data(){
+            return {
+                input:'',
+            }
+        }
     })
 </script>
 </body>
