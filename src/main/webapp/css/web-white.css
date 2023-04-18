@@ -1,7 +1,6 @@
 @charset "utf-8";
 .containerbox {
-	background: #e9eaec;
-	background-repeat: no-repeat;
+	background: #e9eaec no-repeat;
 }
 /**页眉**/
 .super_content {

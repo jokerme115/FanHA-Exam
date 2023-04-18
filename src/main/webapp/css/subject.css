@@ -41,13 +41,13 @@
 }
 
 .subjectUnitViewBox:HOVER {
-	border: 1px solid #d13133;
+	border: 1px solid #44cef6;
 }
 
 .subjectUnitViewBox .subjectOrder {
 	float: left;
 	margin-left: -58px;
-	background-color: #d13133;
+	background-color: #44cef6;
 	color: #ffffff;
 	padding: 2px;
 	padding-left: 12px;
@@ -64,7 +64,7 @@
 	font-size: 14px;
 	line-height: 26px;
 	border: 1px dashed;
-	background-color: #fcf8e3;
+	background-color: #eff6fc;
 	border-radius: 6px;
 	padding: 6px;
 	margin-bottom: 6px;

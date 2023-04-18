@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>开始答题</title>
+    <link rel="icon" href="images/log.svg">
     <link href="css/card.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="css/card.css">
     <link rel="stylesheet" type="text/css" href="css/subject.css">
@@ -16,19 +17,20 @@
 </head>
 <body>
 <div id="app">
-
-
     <!--页头-->
     <div>
-
+    <!--页头一-->
+    <!--页头二-->
+        <el-page-header @back="goBack" content="详情页面"></el-page-header>
+        <el-divider></el-divider>
     </div>
     <!--页头以下-->
     <div class="containerbox">
         <div style="background-color: #ffffff; border-bottom: 1px solid #cccccc;">
-            <div class="container" style="padding: 4px;margin-left: 90px;width: auto">
+            <div class="container" style="padding: 4px;margin-left: auto;margin-right: auto; width: 1140px">
                 <el-row :gutter="20">
-                    <el-col :span="15">
-                        <div style="padding: 4px; width: 1144px; " >
+                    <el-col :span="18">
+                        <div style="padding: 4px;" >
                             <!--题目-->
                             <div style="text-align: center;">
                                 <h1>{{topic.name}}</h1>
@@ -42,14 +44,14 @@
 
                             <!--题目框-->
                             <div class="">
-                            <div  v-for="item in 5" class="chapterBox">
-                                <div class="subjectUnitViewBox">
+                            <div class="chapterBox">
+                                <div class="subjectUnitViewBox" v-for="item in 5">
                                     <div>{{topic.topics.type}}<span
                                             class="subjectPoint">本题{{topic.topics.score}}分</span>
                                     </div>
                                     <!--题目-->
                                     <div class="subjectOrder">{{topic.topics.top1.index}}</div>
-                                    <div>{{topic.topics.top1.subject}}<span
+                                    <div id="a">{{topic.topics.top1.subject}}<span
                                             class="subjectPoint">本题{{topic.topics.top1.grade}}分</span>
                                     </div>
                                     <!--答案-->
@@ -59,7 +61,7 @@
                                                 <div style="float: left; margin-left: 20px;" targetid={{topic.topics.top1.id}}>
                                                     <div>{{item[0]}}.</div>
                                                 </div>
-                                                <div>{{item[1]}}</div>
+                                                <div style="cursor: pointer">{{item[1]}}</div>
                                             </div>
                                         </div>
 
@@ -81,7 +83,7 @@
                         </div>
                     </el-col>
                     <!-- 题目卡片 -->
-                    <el-col :span="9">
+                    <el-col :span="6" position:fixed>
                         <div class="FHA-sidecard" data-spy="affix" data-offset-top="60">
                             <!--标题-->
                             <div class="title">答题卡</div>
@@ -90,7 +92,9 @@
                                 <h1>选择题<span class="chapter-info">100分</span></h1>
                                 <ul>
                                     <li class="FHA-side-subjuct-unit" v-for="i in 25">
+                                        <a href="#a">
                                         {{i}}
+                                        </a>
                                     </li>
                                 </ul>
                             </div>
@@ -125,6 +129,8 @@
             </div>
         </div>
     </div>
+    <!--页脚-->
+    <div class="el-footer" style="text-align: center; font-family: Helvetica Neue,serif;" ><b>FanHA在线答题 version-1.0</b></div>
 </div>
 
 
@@ -171,6 +177,7 @@
             }
         }
     })
+
 </script>
 </body>
 </html>

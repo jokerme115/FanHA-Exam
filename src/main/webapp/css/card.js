@@ -1,19 +1,19 @@
 $(function() {
 	initSideBoxSize();
 	//导航到元素下
-	$('.wts-sidecard h1').click(function() {
+	$('.FHA-sidecard h1').click(function() {
 		gotoTargetDom(this);
 	});
 	//导航到元素下
-	$('.wts-sidecard h2').click(function() {
+	$('.FHA-sidecard h2').click(function() {
 		gotoTargetDom(this);
 	});
 	//导航到元素下
-	$('.wts-sidecard h3').click(function() {
+	$('.FHA-sidecard h3').click(function() {
 		gotoTargetDom(this);
 	});
 	//导航到元素下
-	$('.wts-sidecard li').click(function() {
+	$('.FHA-sidecard li').click(function() {
 		gotoTargetDom(this);
 	});
 	//鼠标移开时边框样式恢复
@@ -21,28 +21,28 @@ $(function() {
 		$('.subjectUnitViewBox').removeClass("active");
 	});
 	//选择题或判断题选中一个选项
-	$('.wts-select-unit').click(function() {
+	$('.FHA-select-unit').click(function() {
 		checkUnitTipClick($('#' + $(this).attr('targetId')).val());
 	});
 	//答案控件改变事件
-	$(".wts-paper-forms input[type='text']").change(function() {
+	$(".FHA-paper-forms input[type='text']").change(function() {
 		var json = enCodeFormInput(this);
 		submitSubject(json, $(this).attr('name'));
 	});
 	//答案控件改变事件
-	$(".wts-paper-forms input[type='radio']").change(function() {
-		var json = enCodeFormInput(this);
-		submitSubject(json, $(this).attr('name'));
-		syncSelectOptionStyle(this);
-	});
-	//答案控件改变事件
-	$(".wts-paper-forms input[type='checkbox']").change(function() {
+	$(".FHA-paper-forms input[type='radio']").change(function() {
 		var json = enCodeFormInput(this);
 		submitSubject(json, $(this).attr('name'));
 		syncSelectOptionStyle(this);
 	});
 	//答案控件改变事件
-	$(".wts-paper-forms textarea").change(function() {
+	$(".FHA-paper-forms input[type='checkbox']").change(function() {
+		var json = enCodeFormInput(this);
+		submitSubject(json, $(this).attr('name'));
+		syncSelectOptionStyle(this);
+	});
+	//答案控件改变事件
+	$(".FHA-paper-forms textarea").change(function() {
 		var json = enCodeFormInput(this);
 		submitSubject(json, $(this).attr('name'));
 	});
@@ -76,8 +76,8 @@ $(function() {
 	//用户确认提交试卷的回调事件（确认对话框弹出时执行）
 	$('#submitPaper-win').on('shown.bs.modal', function (e) {
 		//计算当前一共有多少道题，完成多少道题
-		$("#card-finish-numinfo-all").text($('.wts-side-subjuct-unit').size());
-		$("#card-finish-numinfo-compelet").text($('.wts-side-subjuct-unit.active').size());
+		$("#card-finish-numinfo-all").text($('.FHA-side-subjuct-unit').size());
+		$("#card-finish-numinfo-compelet").text($('.FHA-side-subjuct-unit.active').size());
 	})
 	//启动页面倒计时脚本
 	CountDownStart();
@@ -186,28 +186,28 @@ function checkupPaper() {
 // 编码所有表单
 function enCodePaperForm() {
 	var json;
-	$(".wts-paper-forms input[type='text']").each(function(i, obj) {
+	$(".FHA-paper-forms input[type='text']").each(function(i, obj) {
 		if (json) {
 			json = json + ',' + enCodeFormInput(obj);
 		} else {
 			json = enCodeFormInput(obj);
 		}
 	});
-	$(".wts-paper-forms input[type='radio']").each(function(i, obj) {
+	$(".FHA-paper-forms input[type='radio']").each(function(i, obj) {
 		if (json) {
 			json = json + ',' + enCodeFormInput(obj);
 		} else {
 			json = enCodeFormInput(obj);
 		}
 	});
-	$(".wts-paper-forms input[type='checkbox']").each(function(i, obj) {
+	$(".FHA-paper-forms input[type='checkbox']").each(function(i, obj) {
 		if (json) {
 			json = json + ',' + enCodeFormInput(obj);
 		} else {
 			json = enCodeFormInput(obj);
 		}
 	});
-	$(".wts-paper-forms textarea").each(function(i, obj) {
+	$(".FHA-paper-forms textarea").each(function(i, obj) {
 		if ($(obj).attr('name')) {
 			if (json) {
 				json = json + ',' + enCodeFormInput(obj);
@@ -374,10 +374,10 @@ function runSaveLoading(hav, les) {
 function initSideBoxSize() {
 	$(window).resize(
 			function() {
-				$('.wts-sidecard-subjects').css('max-height',
+				$('.FHA-sidecard-subjects').css('max-height',
 						$(window).height() - 300);
 			});
-	$('.wts-sidecard-subjects').css('max-height', $(window).height() - 300);
+	$('.FHA-sidecard-subjects').css('max-height', $(window).height() - 300);
 }
 
 // 题的选项描述被点击时，选项被选中(val:选项对应的表单元素，一般未radio或checkbox)

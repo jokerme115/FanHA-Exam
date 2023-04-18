@@ -11,8 +11,6 @@ import java.util.List;
  * @data 2023/4/11
  **/
 public interface TopicService {
-    Paper createPaper(String name, double score, int numsType, int numsTotal, int time, Items<?>[] items);
-    Items<?> createItem(String name, String type, double score, int totalNums, int[] ids);
     void insertTopic(String Path, String type);
     List<Topic> getTopicByIds(int[] ids);
     List<Topic> getAllTopic();
@@ -24,7 +22,10 @@ public interface TopicService {
      * @param ids
      */
     void deleteTopicByIds(int[] ids);
-    int selectItemsByName(String name);
     int[] selectTopicByItems(int id) ;
+    List<Topic> selectTopicByItems(int[] ids) ;
     void insertItems(String name, String type, double score, int totalNums, int[] ids);
+    void insertPaper(String name, int time, int[] ids);
+    Paper selectPaper(String name);
+
 }
