@@ -1,16 +1,20 @@
 package com.FanHA.servlet;
 
+import com.FanHA.pojo.Paper;
 import com.FanHA.service.impl.TopicServiceImpl;
+import com.alibaba.fastjson.JSON;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.BufferedReader;
+import java.io.IOException;
 
 /**
  * @author HeTao
  * @data 2023/4/13
  **/
-@WebServlet("Topic/*")
+@WebServlet("/Topic/*")
 public class TopicServlet extends BaseServlet{
     TopicServiceImpl topicService = new TopicServiceImpl();
 
@@ -21,5 +25,22 @@ public class TopicServlet extends BaseServlet{
      */
     public void addPaper(HttpServletRequest req, HttpServletResponse resp){
 
+    }
+    public void showPaper(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        BufferedReader reader = req.getReader();
+        String readLine = reader.readLine();
+
+        System.out.println(readLine);
+
+        //查询数据
+        Paper paper = topicService.selectPaper(readLine);
+        if (paper != null) {
+            //转成json
+            String jsonString = JSON.toJSONString(paper);
+            System.out.println(jsonString);
+            //更改编码 传输
+            resp.setContentType("text/json;charset=utf-8");
+            resp.getWriter().write(jsonString);
+        }else resp.getWriter().write("false");
     }
 }

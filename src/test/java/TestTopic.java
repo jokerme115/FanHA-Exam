@@ -18,7 +18,6 @@ import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -191,5 +190,14 @@ public class TestTopic {
 
         int[] ints = mapper.selectAllItemsFromPaper(1);
         System.out.println(Arrays.toString(ints));
+    }
+    @Test
+    public void demoTest(){
+        SqlSessionFactory sqlSessionFactory = SqlSessionFactoryUtils.getSqlSessionFactory();
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        TopicMapper mapper = sqlSession.getMapper(TopicMapper.class);
+
+        List<String> strings = mapper.selectOption(26);
+        System.out.println(strings);
     }
 }

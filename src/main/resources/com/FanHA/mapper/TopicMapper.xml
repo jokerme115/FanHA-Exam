@@ -50,9 +50,8 @@
         FROM topic;
     </select>
 
-    <select id="selectOption" resultType="string" parameterType="arraylist">
-        SELECT id
-        from topic_option;
+    <select id="selectOption" resultType="String" parameterType="arraylist">
+        SELECT `option` from topic_option WHERE id = #{id};
     </select>
 
     <select id="selectTopicByTitle" resultType="com.FanHA.pojo.Topic" parameterType="arraylist">

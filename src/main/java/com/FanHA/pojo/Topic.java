@@ -10,6 +10,7 @@ import java.util.List;
 public class Topic {
     private int id;
     private String title;//题目
+    private String type;
     private int index;//选项数目
     private  String date;//创建日期
     private String[] answer_blank;//填空题答案

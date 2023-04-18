@@ -1,0 +1,187 @@
+{
+  "date": "2023-04-17 15:53:57:716",
+  "id": 1,
+  "items": [
+    {
+      "date": "2023-04-14 21:19:48:048",
+      "id": 6,
+      "name": "testItems",
+      "score": 60.0,
+      "topics": [
+        {
+          "answer": ".",
+          "date": "2023-04-11 16:58:36:628",
+          "id": 28,
+          "index": 4,
+          "options": [
+            "$",
+            "#",
+            "?",
+            "."
+          ],
+          "title": "Create a custom CSS style, style name which must be put in front of a symbol"
+        },
+        {
+          "answer": "Cascading Style Sheets",
+          "date": "2023-04-11 16:58:36:628",
+          "id": 29,
+          "index": 4,
+          "options": [
+            "Colorful Style Sheets",
+            "Cascading Style Sheets",
+            "Creative Style Sheets",
+            "Color Style Sheets"
+          ],
+          "title": "CSS is short for what?"
+        },
+        {
+          "answer": "Create a drop-down menu",
+          "date": "2023-04-11 16:58:36:628",
+          "id": 30,
+          "index": 4,
+          "options": [
+            "Create a table",
+            "Create a scroll menu",
+            "The content of the item set each form",
+            "Create a drop-down menu"
+          ],
+          "title": "HTML < select name = \"name\" > < / select > said"
+        },
+        {
+          "answer": "Set the table width - with absolute pixel values or the total width of the document",
+          "date": "2023-04-11 16:58:36:628",
+          "id": 31,
+          "index": 4,
+          "options": [
+            "Checked the size of the space between the table",
+            "Set the table grid frame the size of the space between it and its internal content",
+            "Set the table width - with absolute pixel values or the total width of the document",
+            "Set the table grid horizontal alignment"
+          ],
+          "title": "HTML code <table width=# or%> representation "
+        },
+        {
+          "answer": "< hgroup >",
+          "date": "2023-04-11 16:58:36:628",
+          "id": 32,
+          "index": 4,
+          "options": [
+            "<group>",
+            "<header>",
+            "<headings>",
+            "< hgroup >"
+          ],
+          "title": "In HTML 5, which element is used to combine header element"
+        },
+        {
+          "answer": "cols",
+          "date": "2023-04-11 16:58:36:628",
+          "id": 33,
+          "index": 4,
+          "options": [
+            "row",
+            "rows",
+            "col",
+            "cols"
+          ],
+          "title": "In HTML, around the following () sets the framework of attributes can be split window"
+        }
+      ],
+      "totalNums": 6,
+      "type": "select"
+    },
+    {
+      "date": "2023-04-14 21:19:48:048",
+      "id": 7,
+      "name": "testItems2",
+      "score": 65.0,
+      "topics": [
+        {
+          "answer": "Cascading Style Sheets",
+          "date": "2023-04-11 16:58:36:628",
+          "id": 29,
+          "index": 4,
+          "options": [
+            "Colorful Style Sheets",
+            "Cascading Style Sheets",
+            "Creative Style Sheets",
+            "Color Style Sheets"
+          ],
+          "title": "CSS is short for what?"
+        },
+        {
+          "answer": "Create a drop-down menu",
+          "date": "2023-04-11 16:58:36:628",
+          "id": 30,
+          "index": 4,
+          "options": [
+            "Create a table",
+            "Create a scroll menu",
+            "The content of the item set each form",
+            "Create a drop-down menu"
+          ],
+          "title": "HTML < select name = \"name\" > < / select > said"
+        },
+        {
+          "answer": "Set the table width - with absolute pixel values or the total width of the document",
+          "date": "2023-04-11 16:58:36:628",
+          "id": 31,
+          "index": 4,
+          "options": [
+            "Checked the size of the space between the table",
+            "Set the table grid frame the size of the space between it and its internal content",
+            "Set the table width - with absolute pixel values or the total width of the document",
+            "Set the table grid horizontal alignment"
+          ],
+          "title": "HTML code <table width=# or%> representation "
+        },
+        {
+          "answer": "< hgroup >",
+          "date": "2023-04-11 16:58:36:628",
+          "id": 32,
+          "index": 4,
+          "options": [
+            "<group>",
+            "<header>",
+            "<headings>",
+            "< hgroup >"
+          ],
+          "title": "In HTML 5, which element is used to combine header element"
+        },
+        {
+          "answer": "cols",
+          "date": "2023-04-11 16:58:36:628",
+          "id": 33,
+          "index": 4,
+          "options": [
+            "row",
+            "rows",
+            "col",
+            "cols"
+          ],
+          "title": "In HTML, around the following () sets the framework of attributes can be split window"
+        },
+        {
+          "answer": "7",
+          "date": "2023-04-11 16:58:36:633",
+          "id": 34,
+          "index": 4,
+          "options": [
+            "3",
+            "6",
+            "7",
+            "9"
+          ],
+          "title": "In HTML, as shown in the following table contains the cell number is\n< table border = \"1\" >\n< tr >\n< td colspan = \"3\" > test < td >\n< / tr >\n< tr >\n< td > Java < / td >\n< td > < / td > c #\n< td > < td > HTML\n< / tr >\n< tr >\n< td > 100 < / td >\n< td > 80 < / td >\n< td > 65 < / td >\n< / tr >\n< / table >"
+        }
+      ],
+      "totalNums": 6,
+      "type": "select"
+    }
+  ],
+  "name": "testPaper",
+  "score": 125.0,
+  "time": 60,
+  "totalNums": 12,
+  "typeNums": 1
+}

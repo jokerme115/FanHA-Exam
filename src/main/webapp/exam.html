@@ -15,7 +15,7 @@
     <!-- 引入组件库 -->
     <script src="https://unpkg.com/element-ui/lib/index.js"></script>
 </head>
-<body>
+<body onload="demo()">
 <div id="app">
     <!--页头-->
     <div>
@@ -25,7 +25,7 @@
         <el-divider></el-divider>
     </div>
     <!--页头以下-->
-    <div class="containerbox">
+    <div class="containerbox" >
         <div style="background-color: #ffffff; border-bottom: 1px solid #cccccc;">
             <div class="container" style="padding: 4px;margin-left: auto;margin-right: auto; width: 1140px">
                 <el-row :gutter="20">
@@ -34,7 +34,7 @@
                             <!--题目-->
                             <div style="text-align: center;">
                                 <h1>{{topic.name}}</h1>
-                                <span style="font-weight: 700;">共{{topic.nums_big}}道大题，{{topic.nums_number}}道小题, 满分{{topic.totalScore}}</span>
+                                <span style="font-weight: 700;">共{{topic.typeNums}}道大题，{{topic.totalNums}}道小题, 满分{{topic.totalScore}}</span>
                                 <span style="font-weight: 700;">
                                     <br>
                                         答题时间：<span style="color: #dd6161">{{topic.time}}</span>
@@ -143,17 +143,33 @@
 <script>
     var vue = new Vue({
         el: "#app",
+        mounted(){
+            alert("aaaaa");
+            let _this = this;
+            axios({
+                method: "post",
+                url: "http://localhost:8080/FanHA-Exam/Topic/showPaper",
+                data: _this.topicName
+            }).then(function (resp){
+                let paper = resp.data;
+                _this.topic.name = paper.name;
+                _this.topic.score = paper.score;
+                _this.topic.time = paper.time;
+                _this.topic.typeNums = paper.typeNums;
+                _this.topic.totalNums = paper.totalNums;
+            })
+        },
         methods: {
-
         },
         data() {
             return {
                 deadline: Date.now() + 1000 * 60 * 60 * 8,
+                topicName:"testPaper",
                 topic: {
                     name: "各种题型展示",
-                    nums_big: 2,
-                    nums_number: 7,
-                    totalScore: 100,
+                    typeNums: 2,
+                    totalNums: 7,
+                    score: 100,
                     time: 60,
                     topics: {
                         type: "选择题",
@@ -177,7 +193,9 @@
             }
         }
     })
+    function demo(){
 
+    }
 </script>
 </body>
 </html>
