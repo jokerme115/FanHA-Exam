@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="css/direct.css">
+    <link rel="stylesheet" href="css/mine_box.css">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <!--导航栏-->
+    <div class="container_direct">
+        <img src="image/wyb.png" height="11" width="11"/>
+        <nav>
+            <ul>
+                <li>试卷管理</li>
+                <li>答题室</li>
+                <li>成绩统计</li>
+                <li>我的</li>
+            </ul>
+        </nav>
+    </div>
+    <div class="mine_box" style="height: 600px">
+        <!--左菜单选项-->
+        <template>
+            <el-tabs :tab-position="tabPosition" style="height: 180px;">
+                <el-tab-pane label="练习题记录">练习题记录</el-tab-pane>
+                <el-tab-pane label="练习题错集">练习题错集</el-tab-pane>
+                <el-tab-pane label="收藏练习题">收藏练习题</el-tab-pane>
+            </el-tabs>
+            <div class="bottom2"></div>
+            <el-tabs :tab-position="tabPosition" style="height: 60px;">
+                <el-tab-pane label="收藏答卷">收藏答卷</el-tab-pane>
+            </el-tabs>
+            <div class="bottom1"></div>
+            <el-tabs :tab-position="tabPosition" style="height: 120px;">
+                <el-tab-pane label="修改信息">修改信息</el-tab-pane>
+                <el-tab-pane label="修改密码">修改密码</el-tab-pane>
+            </el-tabs>
+        </template>
+        <!--我的答题信息-->
+        <div class="panel-body">
+            <div class="row" style="padding-right: 30px;">
+                <div class="col-sm-2">
+                    <div style="text-align: center; padding: 4px;">
+
+                        <img id="imgShowBoxId" src="actionImg/Publoadphoto.do?id=null" alt="wcp" style="max-height: 96px; max-width: 96px;" class="img-circle">
+
+
+
+                    </div>
+                </div>
+                <div class="col-sm-10">
+                    <div class="row">
+                        <div class="col-sm-12" style="padding-left: 24px;">
+
+                            <strong>我</strong>
+
+
+
+                            <small>属于组织机构</small>
+                            <strong> 金融产业部</strong>
+
+
+                            <small>于2020-10-11 14:48 建立账户
+                            </small>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="inbox">
+                                <div class="numtag">3</div>
+                                <div class="titletag">答题总数</div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="inbox">
+                                <div class="numtag">2</div>
+                                <div class="titletag">错题总数</div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="inbox">
+                                <div class="numtag">10</div>
+                                <div class="titletag">完成考卷总数</div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="inbox">
+                                <div class="numtag">6</div>
+                                <div class="titletag">完成练习总数</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--我的最近足迹-->
+
+
+    </div>
+
+
+    <!--页脚-->
+</div>
+
+<script src="js/vue.js"></script>
+<script src="element-ui/lib/index.js"></script>
+<link rel="stylesheet" href="element-ui/lib/theme-chalk/index.css">
+
+<script>
+    new Vue({
+        el: "#app",
+       data(){
+            return{
+                tabPosition: 'left'
+            }
+       }
+    })
+</script>
+</body>
+</html>
