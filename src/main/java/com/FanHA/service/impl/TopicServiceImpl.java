@@ -9,7 +9,6 @@ import com.FanHA.util.BulkImport;
 import com.FanHA.util.SqlSessionFactoryUtils;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
-import org.apache.poi.ss.formula.functions.T;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -43,6 +42,14 @@ public class TopicServiceImpl implements TopicService {
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @Override
+    public List<String> selectOptionsByTopic(Topic topic) {
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        TopicMapper mapper = sqlSession.getMapper(TopicMapper.class);
+
+        return mapper.selectOption(topic.getId());
     }
 
     @Override
@@ -100,6 +107,24 @@ public class TopicServiceImpl implements TopicService {
         sqlSession.commit();
         sqlSession.close();
     }
+
+    @Override
+    public boolean judgeItems(String name) {
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        TopicMapper mapper = sqlSession.getMapper(TopicMapper.class);
+
+        int i = mapper.selectItemsByName(name);//有问题！？
+        return i != 0;
+    }
+
+    @Override
+    public boolean judgePaper(String name) {
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        TopicMapper mapper = sqlSession.getMapper(TopicMapper.class);
+
+        Paper paper = mapper.selectPaperByNameToPaper(name);
+        return paper != null;
+    }
     @Override
     public int[] selectTopicByItems(int id) {
         SqlSession sqlSession = sqlSessionFactory.openSession();
@@ -109,54 +134,59 @@ public class TopicServiceImpl implements TopicService {
         sqlSession.close();
         return ids;
     }
-
     @Override
     public List<Topic> selectTopicByItems(int[] ids) {
         return null;
     }
-
-
     @Override
     public void insertItems(String name, String type, double score, int totalNums, int[] ids) {
         SqlSession sqlSession = sqlSessionFactory.openSession();
         TopicMapper mapper = sqlSession.getMapper(TopicMapper.class);
         String s = String.valueOf(score);
 
-        mapper.insertItem(name, type, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss:SSS").format(System.currentTimeMillis()) , s, totalNums);
-        sqlSession.commit();
+        if (judgeItems(name)){
+            System.out.println("已存在！");//更改！！！！
+        }else {
+            mapper.insertItem(name, type, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss:SSS").format(System.currentTimeMillis()) , s, totalNums);
+            sqlSession.commit();
 
-        int id = mapper.selectItemsByName(name);
-        mapper.insertTopicToItem(id, ids);
-        sqlSession.commit();
-        sqlSession.close();
+            int id = mapper.selectItemsByName(name);
+            mapper.insertTopicToItem(id, ids);
+            sqlSession.commit();
+            sqlSession.close();
+        }
     }
-
     @Override
     public void insertPaper(String name, int time, int[] ids) {
-        int typeNums = 0;
-        int numsTotal = 0;
-        double score = 0;
-        HashSet<String> hashSet = new HashSet<>();
-        SqlSession sqlSession = sqlSessionFactory.openSession();
-        TopicMapper mapper = sqlSession.getMapper(TopicMapper.class);
-        String date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss:SSS").format(System.currentTimeMillis());
+        if (judgePaper(name)){
+            System.out.println("已存在");//!!!!更改
+        }else {
+            int typeNums = 0;
+            int numsTotal = 0;
+            double score = 0;
+            HashSet<String> hashSet = new HashSet<>();
+            SqlSession sqlSession = sqlSessionFactory.openSession();
+            TopicMapper mapper = sqlSession.getMapper(TopicMapper.class);
+            String date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss:SSS").format(System.currentTimeMillis());
 
-        //得到每一个items的对象进行初始化数据
-        for (int id : ids){
-            Items items = mapper.selectItemsById(id);
-            numsTotal += items.getTotalNums();
-            score += items.getScore();
-            hashSet.add(items.getType());
+            //得到每一个items的对象进行初始化数据
+            for (int id : ids){
+                Items items = mapper.selectItemsById(id);
+                numsTotal += items.getTotalNums();
+                score += items.getScore();
+                hashSet.add(items.getType());
+            }
+            typeNums = hashSet.size();
+
+            String s = String.valueOf(score);
+            mapper.insertPaper(name, date, s, typeNums, numsTotal, time);
+            sqlSession.commit();
+            int id = mapper.selectPaperByName(name);
+            mapper.insertItemToPaper(id, ids);
+            sqlSession.commit();
+            sqlSession.close();
         }
-        typeNums = hashSet.size();
 
-        String s = String.valueOf(score);
-        mapper.insertPaper(name, date, s, typeNums, numsTotal, time);
-        sqlSession.commit();
-        int id = mapper.selectPaperByName(name);
-        mapper.insertItemToPaper(id, ids);
-        sqlSession.commit();
-        sqlSession.close();
     }
 
     @Override
@@ -168,12 +198,17 @@ public class TopicServiceImpl implements TopicService {
         List<Items> items = new ArrayList<>();
 
         int id = paper.getId();
-        int[] ids = mapper.selectAllItemsFromPaper(id);
+        int[] ids = mapper.selectAllItemsFromPaper(id); //获取items
 
         for (int j : ids) {
             Items item = mapper.selectItemsById(j);
-            int[] ints = selectTopicByItems(item.getId());
+            int[] ints = selectTopicByItems(item.getId());//获取topic
             List<Topic> topicByIds = getTopicByIds(ints);
+
+            for (Topic topic : topicByIds){
+                List<String> strings = selectOptionsByTopic(topic);//获取options
+                topic.setOptions(strings);
+            }
             item.setTopics(topicByIds);
             items.add(item);
         }

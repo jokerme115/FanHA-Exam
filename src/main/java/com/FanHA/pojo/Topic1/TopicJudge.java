@@ -3,13 +3,14 @@ package com.FanHA.pojo.Topic1;
 import com.FanHA.pojo.Topic;
 
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * @author HeTao
  * @data 2023/4/10
  **/
 public class TopicJudge extends Topic {
-    private String[] options;
+    private List<String> options;
     private String answer;
     public TopicJudge(){
 
@@ -18,17 +19,17 @@ public class TopicJudge extends Topic {
         super(title, index, data);
     }
 
-    public TopicJudge(String title, int index, String data, String[] options, String answer) {
+    public TopicJudge(String title, int index, String data, List<String> options, String answer) {
         super(title, index, data);
         this.options = options;
         this.answer = answer;
     }
 
-    public String[] getOptions() {
+    public List<String> getOptions() {
         return options;
     }
 
-    public void setOptions(String[] options) {
+    public void setOptions(List<String> options) {
         this.options = options;
     }
 
@@ -43,7 +44,7 @@ public class TopicJudge extends Topic {
     @Override
     public String toString() {
         return "TopicJudge{" +
-                "options=" + Arrays.toString(options) +
+                "options=" + options +
                 ", answer='" + answer + '\'' +
                 '}';
     }

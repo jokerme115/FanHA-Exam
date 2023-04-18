@@ -1,6 +1,7 @@
 package com.FanHA.pojo;
 
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * @author HeTao
@@ -12,22 +13,21 @@ public class Topic {
     private int index;//选项数目
     private  String date;//创建日期
     private String[] answer_blank;//填空题答案
-    private String[] options;//选项
+    private List<String> options;//选项
     private String answer;//答案
 
     public Topic() {
     }
 
-    public Topic(int id, String title, int index, String date, String[] answer_blank, String[] options) {
+    public Topic(int id, String title, int index, String date, List<String> options) {
         this.id = id;
         this.title = title;
         this.index = index;
         this.date = date;
-        this.answer_blank = answer_blank;
         this.options = options;
     }
 
-    public Topic(String title, int index, String date, String[] options, String answer) {
+    public Topic(String title, int index, String date, List<String> options, String answer) {
         this.title = title;
         this.index = index;
         this.date = date;
@@ -77,11 +77,11 @@ public class Topic {
         this.answer_blank = answer_blank;
     }
 
-    public String[] getOptions() {
+    public List<String> getOptions() {
         return options;
     }
 
-    public void setOptions(String[] options) {
+    public void setOptions(List<String> options) {
         this.options = options;
     }
 
@@ -101,7 +101,7 @@ public class Topic {
                 ", index=" + index +
                 ", data='" + date + '\'' +
                 ", answer_blank=" + Arrays.toString(answer_blank) +
-                ", options=" + Arrays.toString(options) +
+                ", options=" + options +
                 ", answer='" + answer + '\'' +
                 '}';
     }
