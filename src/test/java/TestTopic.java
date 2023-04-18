@@ -27,27 +27,6 @@ import java.util.List;
  **/
 public class TestTopic {
     @Test
-    public void testPaper(){
-        Paper paper;
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss:SSS");
-        Topic topicSelect1 = new Topic("“举世闻名”中“举”的意思是()，“举重”中“举”的意思是()。", 4,
-                 format.format(new Date(System.currentTimeMillis())), new String[]{"往上托", "全", "推动", "举动"}, "往上拖");
-        Topic topicSelect2 = new Topic("A: hover said what kind of state in the following text hyperlinks?", 4,
-                format.format(new Date(System.currentTimeMillis())), new String[]{"The mouse click", "The mouse without", "The mouse on", "After the visit"}, "The mouse on");
-        List<Topic> list = new ArrayList<>();
-        list.add(topicSelect1);
-        list.add(topicSelect2);
-        List<Items> items1 = new ArrayList<>();
-
-        Items items = new Items("item1","select", 10, 2, list);
-        items1.add(items);
-        paper = new Paper(1,"测试用例", "0" ,10, 1, 2, 10, items1);
-        System.out.println(paper);
-        System.out.println(items);
-        System.out.println(topicSelect1);
-        System.out.println(topicSelect2);
-    }
-    @Test
     public void testImport(){
         List<Topic> topicSelects = new ArrayList<>();
 
@@ -70,11 +49,12 @@ public class TestTopic {
                     row.getCell(i).setCellType(CellType.STRING);
                 String title = row.getCell(0).getStringCellValue();
                 String date = format.format(System.currentTimeMillis());
-                String[] options = new String[4];
-                options[0] = row.getCell(1).getStringCellValue();
-                options[1] = row.getCell(2).getStringCellValue();
-                options[2] = row.getCell(3).getStringCellValue();
-                options[3] = row.getCell(4).getStringCellValue();
+                List<String> options = new ArrayList<>();
+
+                options.add(row.getCell(1).getStringCellValue());
+                options.add(row.getCell(2).getStringCellValue());
+                options.add(row.getCell(3).getStringCellValue());
+                options.add(row.getCell(4).getStringCellValue());
 
                 int answer = (int) row.getCell(5).getNumericCellValue();
                 String Answer = row.getCell(answer).getStringCellValue();
@@ -93,9 +73,11 @@ public class TestTopic {
     public void function2(){
         String title = "A: hover said what kind of state in the following text hyperlinks?";
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss:SSS");
+
         String[] string = new String[]{"The mouse click","The mouse without", "The mouse on", "After the visit"};
+        List<String> options = new ArrayList<>(List.of(string));
         String answer = "The mouse on";
-        Topic topic = new Topic(title, 4, format.format(System.currentTimeMillis()), string, answer);
+        Topic topic = new Topic(title, 4, format.format(System.currentTimeMillis()), options, answer);
         SqlSessionFactory sqlSessionFactory = SqlSessionFactoryUtils.getSqlSessionFactory();
         SqlSession sqlSession = sqlSessionFactory.openSession();
         TopicMapper mapper = sqlSession.getMapper(TopicMapper.class);
@@ -122,15 +104,15 @@ public class TestTopic {
         List<Topic> topics = mapper.selectTopic();
         for (Topic topic : topics) {
             List<String> strings = mapper.selectOption(topic.getId());
-            String[] array = strings.toArray(new String[0]);
-            topic.setOptions(array);
+
+            topic.setOptions(strings);
         }
 
         for (Topic topic : topics) {
             System.out.print(topic.getId()+".题目信息:");
             System.out.println(topic);
             System.out.print(topic.getId()+".选项信息:");
-            System.out.println(Arrays.toString(topic.getOptions()));
+            System.out.println(topic.getOptions());
             System.out.print(topic.getId()+".答案信息:");
             System.out.println(topic.getAnswer());
             System.out.println("--------------------");

@@ -39,14 +39,12 @@ public interface TopicMapper {
      * @return 符合id的所有选项
      */
     List<String> selectOption(int id);
-
     /**
      * 通过模糊查询题目
      * @param title 模糊查询字段
      * @return 返回题目集合
      */
     List<Topic> selectTopicByTitle(String title);
-
     /**
      * 通过id数组返回对应的题目
      * @param ids 题目序号集
@@ -67,7 +65,6 @@ public interface TopicMapper {
      */
     @Select("SELECT * FROM items WHERE name = #{name}")
     Items selectItemsByNameToItems(String name);
-
     /**
      * 通过题目集id查询题目集
      * @param id 题目id
@@ -76,7 +73,6 @@ public interface TopicMapper {
     Items selectItemsById(int id);
     @Select("SELECT items_id from paper_items WHERE paper_id = #{id};")
     int[] selectAllItemsFromPaper(int id);
-
     /**
      * 通过题目集id查询题目id
      * @param id 题目集id
@@ -112,15 +108,21 @@ public interface TopicMapper {
      * @param totalNums 题集数量
      */
     void insertItem(@Param("name") String name,@Param("type") String type, @Param("date") String date,@Param("score") String score,@Param("totalNums") int totalNums);
-
     /**
      * 向题目_题目集进行关联
      * @param id 题目集id
      * @param ids 题目的id集
      */
     void insertTopicToItem(@Param("id") int id, @Param("ids") int[] ids);
-
-
+    /**
+     * 添加试卷
+     * @param name 姓名
+     * @param date 时间
+     * @param score 总分数
+     * @param totalType 总题型
+     * @param totalNums 总数量
+     * @param time 答题时间
+     */
     void insertPaper(@Param("name") String name, @Param("date") String date,@Param("score") String score,@Param("totalType") int totalType,
                      @Param("totalNums") int totalNums,@Param("time")  int time);
     void insertItemToPaper(@Param("id") int id, @Param("ids") int[] ids);
@@ -131,7 +133,6 @@ public interface TopicMapper {
      */
     @Delete("DELETE from topic where id = #{id}")
     void deleteTitleById(int id);
-
     /**
      * 通过id删除选项
      * @param id 题目序号
@@ -143,7 +144,6 @@ public interface TopicMapper {
      * @param ids 题目序号数组
      */
     void deleteTitleByIds(@Param("ids") int[] ids);
-
     /**
      * 通过一组id删除选项
      * @param ids 题目序号数组

@@ -49,11 +49,12 @@ public class BulkImport {
 
                 String title = row.getCell(0).getStringCellValue();
                 String date = format.format(System.currentTimeMillis());
-                String[] options = new String[4];
-                options[0] = row.getCell(1).getStringCellValue();
-                options[1] = row.getCell(2).getStringCellValue();
-                options[2] = row.getCell(3).getStringCellValue();
-                options[3] = row.getCell(4).getStringCellValue();
+                List<String> options = new ArrayList<>();
+
+                options.add(row.getCell(1).getStringCellValue());
+                options.add(row.getCell(2).getStringCellValue());
+                options.add(row.getCell(3).getStringCellValue());
+                options.add(row.getCell(4).getStringCellValue());
                 int answer = (int) row.getCell(5).getNumericCellValue();
                 String Answer = row.getCell(answer).getStringCellValue();
 
@@ -78,7 +79,7 @@ public class BulkImport {
             System.out.print(++count+".题目信息:");
             System.out.println(topic);
             System.out.print(count+".选项信息:");
-            System.out.println(Arrays.toString(topic.getOptions()));
+            System.out.println(topic.getOptions());
             System.out.print(count+".答案信息:");
             System.out.println(topic.getAnswer());
             System.out.println("--------------------");
