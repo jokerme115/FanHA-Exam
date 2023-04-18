@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.FanHA.mapper.TopicMapper">
+
+    <resultMap id="items" type="com.FanHA.pojo.Items">
+        <id column="id" property="id"/>
+        <result column="name" property="name" javaType="String" jdbcType="VARCHAR"/>
+        <result column="date" property="date" javaType="String" jdbcType="VARCHAR"/>
+        <result column="type" property="type" javaType="String" jdbcType="VARCHAR"/>
+        <result column="score" property="score" typeHandler="com.FanHA.mapper.StringToDouble"/>
+        <result column="totalNums" property="totalNums" javaType="int" jdbcType="INTEGER"/>
+    </resultMap>
+    <resultMap id="paper" type="com.FanHA.pojo.Paper">
+        <id column="id" property="id"/>
+        <result column="name" property="name" javaType="String" jdbcType="VARCHAR"/>
+        <result column="date" property="date" javaType="String" jdbcType="VARCHAR"/>
+        <result column="score" property="score" typeHandler="com.FanHA.mapper.StringToDouble"/>
+        <result column="typeNums" property="typeNums" javaType="int" jdbcType="INTEGER"/>
+        <result column="totalNums" property="totalNums" javaType="int" jdbcType="INTEGER"/>
+        <result column="time" property="time" javaType="int" jdbcType="INTEGER"/>
+    </resultMap>
+    <insert id="insertItem">
+        INSERT INTO items
+        values (null, #{name}, #{date}, #{type}, #{score}, #{totalNums})
+    </insert>
+    <insert id="insertTopicToItem">
+
+        INSERT INTO item_topic (itemId, topicId) VALUES
+        <foreach collection="ids" item="id2" separator=",">
+            (#{id},#{id2})
+        </foreach>
+        ;
+    </insert>
+    <insert id="insertPaper">
+        INSERT INTO paper
+        values (null, #{name}, #{date}, #{score}, #{totalType}, #{totalNums}, #{time})
+    </insert>
+    <insert id="insertItemToPaper">
+        INSERT INTO paper_items (paper_id, items_id) VALUES
+        <foreach collection="ids" item="id2" separator=",">
+            (#{id},#{id2})
+        </foreach>
+        ;
+    </insert>
+    <select id="selectTopic" resultType="com.FanHA.pojo.Topic" parameterType="arraylist">
+        SELECT *
+        FROM topic;
+    </select>
+
+    <select id="selectOption" resultType="string" parameterType="arraylist">
+        SELECT id
+        from topic_option;
+    </select>
+
+    <select id="selectTopicByTitle" resultType="com.FanHA.pojo.Topic" parameterType="arraylist">
+        SELECT *
+        from topic
+        where title like #{title};
+    </select>
+    <select id="selectTopicByIds" resultType="com.FanHA.pojo.Topic">
+        Select * from topic where id in
+        <foreach collection="ids" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+        ;
+    </select>
+    <select id="selectItemsById" resultMap="items">
+        Select * from items where id = #{id};
+    </select>
+    <select id="selectPaperByNameToPaper" resultMap="paper">
+        SELECT * FROM paper WHERE name = #{name};
+    </select>
+    <delete id="deleteTitleByIds">
+        DELETE FROM topic WHERE id IN
+        <foreach collection="ids" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+        ;
+    </delete>
+    <delete id="deleteOptionsByIds">
+        DELETE FROM topic WHERE id IN
+        <foreach collection="ids" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+        ;
+    </delete>
+</mapper>

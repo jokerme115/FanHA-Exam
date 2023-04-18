@@ -10,7 +10,7 @@
     <link rel="icon" href="images/log.svg">
     <title>FanHA用户登录</title>
 </head>
-<body onload="getInformation()">
+<body>
 <div class="container">
     <div class="forms-container" id="app">
         <div class="signin-signup">
@@ -110,7 +110,6 @@
                         setTimeout(function (){
                             window.location.href="#"
                         }, 2000);
-
                     } else {
                         _this.$message({
                             message: '账号或密码错误',
