@@ -1,14 +1,21 @@
 import com.FanHA.mapper.TopicMapper;
 import com.FanHA.pojo.Items;
+import com.FanHA.pojo.PageBean;
 import com.FanHA.pojo.Paper;
 import com.FanHA.pojo.Topic;
 import com.FanHA.service.impl.TopicServiceImpl;
 import com.FanHA.util.SqlSessionFactoryUtils;
+import com.alibaba.fastjson.JSON;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import net.sf.jsqlparser.statement.select.Top;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.formula.functions.T;
 import org.apache.poi.ss.usermodel.CellType;
 import org.junit.Test;
 
@@ -193,11 +200,14 @@ public class TestTopic {
     }
     @Test
     public void demoTest(){
-        SqlSessionFactory sqlSessionFactory = SqlSessionFactoryUtils.getSqlSessionFactory();
-        SqlSession sqlSession = sqlSessionFactory.openSession();
-        TopicMapper mapper = sqlSession.getMapper(TopicMapper.class);
+        PageHelper.startPage(2, 10);
+        TopicServiceImpl topicService = new TopicServiceImpl();
 
-        List<String> strings = mapper.selectOption(26);
-        System.out.println(strings);
+        List<Topic> allTopic = topicService.getAllTopic();
+        for (Topic topic : allTopic)
+            System.out.println(topic);
+        PageBean<Topic> page= new PageBean<>(allTopic);
+        String jsonString = JSON.toJSONString(page);
+        System.out.println(jsonString);
     }
 }

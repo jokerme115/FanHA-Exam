@@ -15,8 +15,8 @@
     <!-- 引入组件库 -->
     <script src="https://unpkg.com/element-ui/lib/index.js"></script>
 </head>
-<body onload="demo()">
-<div id="app">
+<body>
+<div id="app" style="min-height: 713px">
     <!--页头-->
     <div>
     <!--页头一-->
@@ -24,8 +24,10 @@
         <el-page-header @back="goBack" content="详情页面"></el-page-header>
         <el-divider></el-divider>
     </div>
+
     <!--页头以下-->
-    <div class="containerbox" >
+    <div class="containerbox" v-loading="loading">
+        <template v-if="paper">
         <div style="background-color: #ffffff; border-bottom: 1px solid #cccccc;">
             <div class="container" style="padding: 4px;margin-left: auto;margin-right: auto; width: 1140px">
                 <el-row :gutter="20">
@@ -33,11 +35,11 @@
                         <div style="padding: 4px;" >
                             <!--题目-->
                             <div style="text-align: center;">
-                                <h1>{{topic.name}}</h1>
-                                <span style="font-weight: 700;">共{{topic.typeNums}}道大题，{{topic.totalNums}}道小题, 满分{{topic.totalScore}}</span>
+                                <h1>{{paper.name}}</h1>
+                                <span style="font-weight: 700;">共{{paper.typeNums}}道大题，{{paper.totalNums}}道小题, 满分{{paper.score}}</span>
                                 <span style="font-weight: 700;">
                                     <br>
-                                        答题时间：<span style="color: #dd6161">{{topic.time}}</span>
+                                        答题时间：<span style="color: #dd6161">{{paper.time}}</span>
                                         答 题 人：<span style="color: #dd6161">{{user.name}}</span>
                                 </span>
                             </div>
@@ -45,37 +47,40 @@
                             <!--题目框-->
                             <div class="">
                             <div class="chapterBox">
-                                <div class="subjectUnitViewBox" v-for="item in 5">
-                                    <div>{{topic.topics.type}}<span
-                                            class="subjectPoint">本题{{topic.topics.score}}分</span>
+                                <div class="subjectUnitViewBox" v-for="item in paper.items">
+                                    <div>{{item.type}}<span
+                                            class="subjectPoint">本题{{item.score}}分</span>
                                     </div>
                                     <!--题目-->
-                                    <div class="subjectOrder">{{topic.topics.top1.index}}</div>
-                                    <div id="a">{{topic.topics.top1.subject}}<span
-                                            class="subjectPoint">本题{{topic.topics.top1.grade}}分</span>
-                                    </div>
+                                    <div v-for="(topic, index) in item.topics">
+                                    <div class="subjectOrder">{{index+1}}</div>
+                                    <div v-bind:id="item.id+'#' + index">{{topic.title}}<span
+                                            class="subjectPoint">本题{{item.score / item.totalNums}}分</span>
+                                    </div >
                                     <!--答案-->
                                     <div style="margin: 8px;">
                                         <div class="wts-select-unit">
-                                            <div v-for="item in topic.topics.top1.options" >
-                                                <div style="float: left; margin-left: 20px;" targetid={{topic.topics.top1.id}}>
-                                                    <div>{{item[0]}}.</div>
+                                            <div v-for="(option, index) in topic.options" >
+                                                <div style="float: left; margin-left: 20px;">
+                                                    <div>{{String.fromCharCode(65+index)}}.</div>
                                                 </div>
-                                                <div style="cursor: pointer">{{item[1]}}</div>
+                                                <label v-bind:for="item.id+'#'+option+'#'+index">
+                                                <div style="cursor: pointer">{{option}}</div></label>
                                             </div>
                                         </div>
 
                                         <div class="answerUnitViewBox">
                                             <ul>
-                                                <li v-for="(item, index) in topic.topics.top1.options">
+                                                <li v-for="(option, index) in topic.options">
                                                     <label style="cursor: pointer;">
-                                                        {{item[0]}}.<input id={{topic.topics.top1.id}} v-model=topic.topics.top1.select style="cursor: pointer;" type="radio"
-                                                           name={{topic.topics.top1.id}} v-bind:value="index+1">
+                                                        {{String.fromCharCode(65+index)}}.<input v-model=option.select  style="cursor: pointer;" type="radio"
+                                                            v-bind:value="index+1" v-bind:id="item.id+'#'+option+'#'+index" v-bind:name="topic.id">
                                                     </label>
                                                 </li>
                                             </ul>
                                             <div style="clear: both;"></div>
                                         </div>
+                                    </div>
                                     </div>
                                 </div>
                             </div>
@@ -83,16 +88,16 @@
                         </div>
                     </el-col>
                     <!-- 题目卡片 -->
-                    <el-col :span="6" position:fixed>
-                        <div class="FHA-sidecard" data-spy="affix" data-offset-top="60">
+                    <el-col :span="6">
+                        <div class="FHA-sidecard" style="position: fixed" data-spy="affix" data-offset-top="60">
                             <!--标题-->
                             <div class="title">答题卡</div>
                             <!--题目卡-->
-                            <div class="FHA-sidecard-subjects" style="overflow: auto; max-height: 300px;">
-                                <h1>选择题<span class="chapter-info">100分</span></h1>
+                            <div class="FHA-sidecard-subjects" style="overflow: auto; max-height: 300px;" v-for="item in paper.items">
+                                <h1>{{item.type}}<span class="chapter-info">{{item.score}}</span></h1>
                                 <ul>
-                                    <li class="FHA-side-subjuct-unit" v-for="i in 25">
-                                        <a href="#a">
+                                    <li class="FHA-side-subjuct-unit" v-for="i in item.totalNums">
+                                        <a v-bind:href="'#'+item.id+'#' + (i-1)" style="text-decoration: none;">
                                         {{i}}
                                         </a>
                                     </li>
@@ -102,7 +107,7 @@
                             <div class="btn-group btn-group-justified FHA-sidecard-buttons" style="margin-top: 0; border-top: 1px dashed #ccc;">
                                 <div class="btn-group" role="group">
                                     <div style="font-size: 12px; color: #999; text-align: center; padding-top: 2%" title="以服务器时间为准">
-                                        开始答题 20:26:28 - 结束答题 20:38:28
+                                        开始答题 {{date1}} - 结束答题 {{date2}}
                                     </div>
                                 </div>
                             </div>
@@ -112,25 +117,23 @@
                                     <div class="btn FHA-countdown-title" title="以服务器时间为准" style="text-align: center">
                                         <span id="countDownTimerBoxId" class="defaut alarm" title="以服务器时间为准">0分36秒</span>
                                     </div>
-
                                 </div>
                             </div>
 
                             <!--交卷-->
-                            <div style="text-align: center; padding-top: 3%; font-size: 40%" >
-                            <el-button type="primary">主要按钮</el-button>
-                            </div>
-                            <div>
-                                <h1>{{topic.topics.top1.select}}</h1>
+                            <div style="text-align: center; padding-top: 3%; font-size: 40%; padding-bottom: 3%" >
+                            <el-button type="primary" @click="submit()">提交试卷</el-button>
                             </div>
                         </div>
                     </el-col>
                 </el-row>
             </div>
         </div>
+        </template>
     </div>
+
     <!--页脚-->
-    <div class="el-footer" style="text-align: center; font-family: Helvetica Neue,serif;" ><b>FanHA在线答题 version-1.0</b></div>
+    <div class="el-footer" style="text-align: center; font-family: Helvetica Neue,serif;"><b>FanHA在线答题 version-1.0</b></div>
 </div>
 
 
@@ -151,49 +154,70 @@
                 url: "http://localhost:8080/FanHA-Exam/Topic/showPaper",
                 data: _this.topicName
             }).then(function (resp){
-                let paper = resp.data;
-                _this.topic.name = paper.name;
-                _this.topic.score = paper.score;
-                _this.topic.time = paper.time;
-                _this.topic.typeNums = paper.typeNums;
-                _this.topic.totalNums = paper.totalNums;
+                _this.paper = resp.data;
+                _this.getTime(_this.paper.time);
+                _this.loading = false;
             })
         },
         methods: {
+            getTime(time){
+                let date = new Date();
+                let hours = date.getHours();
+                let minutes = date.getMinutes();
+                let seconds = date.getSeconds();
+                let minutes2 = (date.getMinutes() + time)%60;
+                let hours2 = (hours+parseInt ((minutes2 + time)/60))%24;
+
+                if(hours < 10){hours = '0'+hours}
+                if(minutes < 10){minutes = '0'+minutes}
+                if(seconds < 10){seconds = '0'+seconds}
+                if(hours2 < 10){hours2 = '0'+parseInt(hours2) }
+                if(minutes2 < 10){minutes2 = '0'+parseInt(minutes2)}
+                this.date1 = hours + ':' + minutes + ':' + seconds
+                this.date2 = hours2 + ':' + minutes2 + ':' + seconds
+            },
+            submit(){
+                /*alert("已执行");
+                alert(this.paper.name);
+                alert(this.paper.items);
+                alert(this.paper.items[i].name)
+                for (let i = 0; i < this.paper.items.length; i++){
+                    alert(this.paper.items[i].name)
+                    for (let j = 0; j < this.paper.items[i].topics.length; j++){
+                        alert(this.paper.items[i].topics.title);
+                    }
+                }*/
+                /*let flag = true;
+                for (let item in this.paper.items)
+                    for (let topic in item.topics)
+                        if (topic.select.length !== topic.index)
+                            flag = false;
+
+                if (flag){
+
+                }else{
+                    this.$message({
+                        message: '还有题未完成！',
+                        type: 'warning'});
+                }*/
+            }
         },
         data() {
             return {
                 deadline: Date.now() + 1000 * 60 * 60 * 8,
                 topicName:"testPaper",
-                topic: {
-                    name: "各种题型展示",
-                    typeNums: 2,
-                    totalNums: 7,
-                    score: 100,
-                    time: 60,
-                    topics: {
-                        type: "选择题",
-                        score: 100,
-                        top1: {
-                            id: 1,
-                            index: 1,
-                            subject: "“举世闻名”中“举”的意思是()，“举重”中“举”的意思是()。",
-                            grade: 5,
-                            select:0,
-                            options: [["A", "往上托"],
-                                ["B", "全"],
-                                ["C", "推选"],
-                                ["D", "举动"],]
-                        }
-                    }
-                },
+                paper: {},
+                select:[],
+                loading:true,
                 user: {
                     name: "何涛",
-                }
+                },
+                date1:'',
+                date2:'',
             }
         }
     })
-    function demo(){
+    function dateLine(min){
 
     }
 </script>

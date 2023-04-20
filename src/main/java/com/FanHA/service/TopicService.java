@@ -95,4 +95,6 @@ public interface TopicService {
      * @return 是否存在
      */
     boolean judgePaper(String name);
+    boolean judgeTopic(Topic topic);
+    boolean insertTopic(Topic topic);
 }

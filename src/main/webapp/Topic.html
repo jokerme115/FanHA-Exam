@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .el-table .warning-row {
+            background: oldlace;
+        }
+
+        .el-table .success-row {
+            background: #f0f9eb;
+        }
+        .demo-table-expand {
+            font-size: 0;
+        }
+        .demo-table-expand label {
+            width: 90px;
+            color: #99a9bf;
+        }
+        .demo-table-expand .el-form-item {
+            margin-right: 0;
+            margin-bottom: 0;
+            width: 50%;
+        }
+    </style>
+</head>
+<body>
+<div id="app" style="height:714px">
+    <!--页眉-->
+    <!--正文-->
+    <div style="margin: auto; height: 100%">
+        <!--侧边栏-->
+        <el-row gutter="20">
+            <el-col :span="3" :offset="3">
+                <div>
+                    <el-menu
+                            default-active="3"
+                            class="el-menu-vertical-demo">
+                        <el-menu-item index="1">
+                            <i class="el-icon-location"></i>
+                            <span>试卷</span>
+                        </el-menu-item>
+                        <el-menu-item index="2">
+                            <i class="el-icon-menu"></i>
+                            <span>试题集</span>
+                        </el-menu-item>
+                        <el-menu-item index="3">
+                            <i class="el-icon-document"></i>
+                            <span>试题</span>
+                        </el-menu-item>
+                    </el-menu>
+                </div>
+            </el-col>
+            <!--表格-->
+            <el-col :span="15" v-loading="loading">
+                <template>
+                    <!--添加按钮-->
+                    <el-button type="primary" icon="el-icon-edit" @click="addFormVisible = true;resetForm('ruleForm');">添加题目</el-button>
+                    <!--添加表单-->
+                    <el-dialog title="添加题目"  center :visible.sync="addFormVisible">
+                        <el-form :model="topic" ref="addTopic" label-width="100px" class="add-topic" style="width: 70%;margin: auto">
+                            <el-form-item
+                                    prop="title"
+                                    label="题目"
+                                    :rules="[{ required: true, message: '请输入题目', trigger: 'blur' }]">
+                                <el-input v-model="topic.title"></el-input>
+                            </el-form-item>
+                            <el-form-item
+                                    v-for="(option, index) in topic.options"
+                                    :label="'选项' + (index +1)"
+                                    :key="option.key"
+                                    :prop="'options.' + index + '.value'"
+                                    :rules="{required: true, message: '选项不能为空', trigger: 'blur'}">
+                                <el-input v-model="option.value" style="width: 80%"></el-input><span><el-button @click.prevent="removeOption(option)">删除</el-button></span>
+                            </el-form-item>
+                            <el-form-item
+                                    label="题型"
+                                    :rules="{required: true, message: '选项不能为空', trigger: 'blur'}"
+                            >
+                                <el-select v-model="select" clearable  placeholder="请选择">
+                                    <el-option
+                                            v-for="item in selects"
+                                            :key="item.value"
+                                            :label="item.label"
+                                            :value="item.value"
+                                            :disabled="item.disable"
+                                    >
+                                    </el-option>
+                                </el-select>
+                            </el-form-item>
+                            <el-form-item
+                                    prop="answer"
+                                    label="答案"
+                                    :rules="[{ required: true, message: '请输入答案', trigger: 'blur' }]">
+                                <el-input v-model="topic.answer"></el-input>
+                            </el-form-item>
+                            <el-form-item>
+                                <el-button type="primary" @click="submitForm('addTopic')">提交</el-button>
+                                <el-button @click="addOption">新增选项</el-button>
+                                <el-button @click="resetForm('addTopic')">重置</el-button>
+                            </el-form-item>
+                        </el-form>
+                        <div slot="footer" class="dialog-footer">
+                            <el-button @click="addFormVisible = false">取 消</el-button>
+                            <el-button type="primary" @click="addTopic()">确 定</el-button>
+                        </div>
+                    </el-dialog>
+                    <!--表格正文-->
+                    <el-table
+                            border
+                            ref="multipleTable"
+                            :data="tableData"
+                            tooltip-effect="dark"
+                            style="width: 100%"
+                            :row-class-name="tableRowClassName">
+                        @selection-change="handleSelectionChange">
+                        <el-table-column type="expand" label="展开" width="55">
+                        <template slot-scope="props">
+                            <el-form label-position="left" inline class="demo-table-expand">
+                                <el-form-item label="创建时间">
+                                    <span>{{ props.row.date }}</span>
+                                </el-form-item>
+                                <el-form-item label="题目">
+                                    <span><strong>{{ props.row.title }}</strong></span>
+                                </el-form-item>
+                                <el-form-item  v-for="(option,index) in props.row.options" :label="'选项'+(index+1)">
+                                    <span>{{ option }}</span>
+                                </el-form-item>
+                                <el-form-item label="答案">
+                                    <span>{{ props.row.answer }}</span>
+                                </el-form-item>
+                            </el-form>
+                        </template>
+                        </el-table-column>
+                        <el-table-column
+                                type="selection"
+                                fixed
+                                width="55">
+                        </el-table-column>
+                        <el-table-column
+                                prop="date"
+                                label="日期"
+                                sortable
+                                width="120">
+                        </el-table-column>
+                        <el-table-column
+                                prop="title"
+                                label="题目"
+                                width="700">
+                        </el-table-column>
+                        <el-table-column
+                                prop="type"
+                                label="题目类型"
+                                width="120">
+                        </el-table-column>
+                        <el-table-column label="操作">
+                            <template slot-scope="scope">
+                                <!--编辑键-->
+                                <el-button
+                                        size="mini"
+                                        @click="editFormVisible = true"
+                                        >编辑
+                                </el-button>
+                                <!--编辑面板-->
+                                <el-dialog title="编辑题目"  center :visible.sync="editFormVisible">
+                                    <el-form :model="topic" ref="addTopic" label-width="100px" class="add-topic" style="width: 70%;margin: auto">
+                                        <el-form-item
+                                                prop="title"
+                                                label="题目"
+                                                :rules="[{ required: true, message: '请输入题目', trigger: 'blur' }]">
+                                            <el-input v-model="topic.title"></el-input>
+                                        </el-form-item>
+                                        <el-form-item
+                                                v-for="(option, index) in topic.options"
+                                                :label="'选项' + (index +1)"
+                                                :key="option.key"
+                                                :prop="'options.' + index + '.value'"
+                                                :rules="{required: true, message: '选项不能为空', trigger: 'blur'}">
+                                            <el-input v-model="option.value" style="width: 80%"></el-input><span><el-button @click.prevent="removeOption(option)">删除</el-button></span>
+                                        </el-form-item>
+                                        <el-form-item
+                                                prop=""
+                                                label="题型"
+                                                :rules="{required: true, message: '选项不能为空', trigger: 'blur'}"
+                                        >
+                                            <el-select v-model="select" clearable  placeholder="请选择">
+                                                <el-option
+                                                        v-for="item in selects"
+                                                        :key="item.value"
+                                                        :label="item.label"
+                                                        :value="item.value"
+                                                        :disabled="item.disable"
+                                                >
+                                                </el-option>
+                                            </el-select>
+                                        </el-form-item>
+                                        <el-form-item
+                                                prop="answer"
+                                                label="答案"
+                                                :rules="[{ required: true, message: '请输入答案', trigger: 'blur' }]">
+                                            <el-input v-model="topic.answer"></el-input>
+                                        </el-form-item>
+                                        <el-form-item>
+                                            <el-button type="primary" @click="submitForm('addTopic')">提交</el-button>
+                                            <el-button @click="addOption">新增选项</el-button>
+                                            <el-button @click="resetForm('addTopic')">重置</el-button>
+                                        </el-form-item>
+                                    </el-form>
+                                    <div slot="footer" class="dialog-footer">
+                                        <el-button @click="dialogFormVisible = false">取 消</el-button>
+                                        <el-button type="primary" @click="dialogFormVisible = false">确 定</el-button>
+                                    </div>
+                                </el-dialog>
+                                <!--删除键-->
+                                <el-popconfirm
+                                        confirm-button-text='好的'
+                                        cancel-button-text='不用了'
+                                        icon="el-icon-info"
+                                        icon-color="red"
+                                        title="这是一段内容确定删除吗？">
+                                    <el-button slot="reference" size="mini" type="danger">删除</el-button>
+                                </el-popconfirm>
+
+                            </template>
+                        </el-table-column>
+                    </el-table>
+                </template>
+                <el-pagination
+                        @size-change="handleSizeChange"
+                        @current-change="handleCurrentChange"
+                        :current-page="currentPage"
+                        :page-sizes="[10, 20, 30, 40]"
+                        :page-size="10"
+                        layout="total, sizes, prev, pager, next, jumper"
+                        :total="total">
+                </el-pagination>
+            </el-col>
+        </el-row>
+    </div>
+    <!--页脚-->
+
+
+</div>
+<script src="js/app.js"></script>
+<!--导入axios框架 vue2框架 element组件 以及css样式-->
+<script src="js/axios-0.18.0.js"></script>
+<script src="js/vue.js"></script>
+<script src="element-ui/lib/index.js"></script>
+<link rel="stylesheet" href="element-ui/lib/theme-chalk/index.css">
+<script>
+    new Vue({
+        el: "#app",
+        mounted(){
+            this.getTopic();
+        },
+        methods: {
+            addTopic(){
+                let _this = this;
+                axios({
+                    method: "post",
+                    url: "http://localhost:8080/FanHA-Exam/Topic/addTopic",
+                    data: _this.topic
+                }).then(function (resp){
+                    if (resp.data === "success"){
+                        _this.$message({
+                            message: '添加成功',
+                            type: 'success'
+                        });
+                    }else {
+                        _this.$message({
+                            message: '添加失败',
+                            type: 'warning'
+                        });
+                    }
+                    _this.addFormVisible = false;
+                })
+            },
+            handleSizeChange(val) {
+                this.pageSize = val;
+                this.getTopic() ;
+            },
+            handleCurrentChange(val) {
+                this.currentPage = val;
+                this.getTopic();
+            },
+            getTopic(){
+                let _this = this;
+                axios({
+                    method: "get",
+                    url: "http://localhost:8080/FanHA-Exam/Topic/getTopic?currentPage="+ _this.currentPage+ "&pageSize=" + _this.pageSize,
+                }).then(function (resp){
+                    if (resp !== "false"){
+                        _this.total = resp.data.pageInfo.total;
+                        _this.tableData = resp.data.list;
+                        _this.loading = false;
+                    }else{
+                        _this.$message({
+                            message: '获取题目失败',
+                            type: 'warning'
+                        });
+                        _this.loading = false;
+                    }
+
+                })
+            },
+            /*着色*/
+            tableRowClassName({row, rowIndex}) {
+                if (rowIndex % 4 === 1) {
+                    return 'warning-row';
+                } else if (rowIndex % 4 === 3) {
+                    return 'success-row';
+                }
+                return '';
+            },
+            resetForm(formName) {
+                this.$refs[formName].resetFields();
+            },
+            removeOption(item) {
+                var index = this.topic.options.indexOf(item)
+                if (index !== -1) {
+                    this.topic.options.splice(index, 1)
+                }
+            },
+            addOption() {
+                this.topic.options.push({
+                    value: '',
+                    key: Date.now()
+                });
+            }
+        },
+        data() {
+            return {
+                pageSize: 10,
+                total: 0,
+                currentPage:1,
+                tableData: [],
+                addFormVisible: false,
+                editFormVisible: false,
+                topic: {
+                    options: [{
+                        option: ''
+                    }],
+                    title: '',
+                    answer: '',
+                },
+                select: '',
+                selects:[{
+                    label: '单选',
+                    value: 'select',
+                },{
+                    label: '多选',
+                    value: 'mulSelect',
+                    disable: true
+                },{
+                    label: '填空',
+                    value: 'blank',
+                    disable: true
+                },
+                ],
+                loading : true,
+            }
+
+            }
+
+    })
+</script>
+</body>
+</html>

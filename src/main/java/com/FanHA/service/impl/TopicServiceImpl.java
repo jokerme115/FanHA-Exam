@@ -68,6 +68,11 @@ public class TopicServiceImpl implements TopicService {
         TopicMapper mapper = sqlSession.getMapper(TopicMapper.class);
 
         List<Topic> topics = mapper.selectTopic();
+
+        for (Topic topic : topics){
+            List<String> strings = mapper.selectOption(topic.getId());
+            topic.setOptions(strings);
+        }
         sqlSession.close();
         return topics;
     }
@@ -123,8 +128,29 @@ public class TopicServiceImpl implements TopicService {
         TopicMapper mapper = sqlSession.getMapper(TopicMapper.class);
 
         Paper paper = mapper.selectPaperByNameToPaper(name);
+        sqlSession.close();
         return paper != null;
     }
+
+    @Override
+    public boolean judgeTopic(Topic topic) {
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        TopicMapper mapper = sqlSession.getMapper(TopicMapper.class);
+
+        Topic topic1 = mapper.selectTopicByName(topic.getTitle());
+        sqlSession.close();
+        return topic1 != null;
+    }
+
+    @Override
+    public boolean insertTopic(Topic topic) {
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        TopicMapper mapper = sqlSession.getMapper(TopicMapper.class);
+
+        mapper.insertTopic(topic);
+        return mapper.selectTopicByName(topic.getTitle()) != null;
+    }
+
     @Override
     public int[] selectTopicByItems(int id) {
         SqlSession sqlSession = sqlSessionFactory.openSession();

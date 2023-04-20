@@ -22,6 +22,8 @@ public interface TopicMapper {
      */
     @Select("select id from topic where title = #{title} and date = #{date} and answer = #{answer}")
     int getTopicId(Topic topic);
+    @Select("SELECT * from topic WHERE title = #{title}")
+    Topic selectTopicByName(String title);
     /**
      * 把id和答案传入到数据库
      * @param topic 传入带有id的Topic
@@ -149,4 +151,6 @@ public interface TopicMapper {
      * @param ids 题目序号数组
      */
     void deleteOptionsByIds(@Param("ids") int[] ids);
+
+
 }

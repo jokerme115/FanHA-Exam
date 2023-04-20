@@ -1,5 +1,6 @@
 package com.FanHA.pojo;
 
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.List;
 
@@ -18,6 +19,13 @@ public class Topic {
     private String answer;//答案
 
     public Topic() {
+    }
+
+    public Topic(String title, List<String> options, String answer) {
+        this.title = title;
+        this.options = options;
+        this.date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss:SSS").format(System.currentTimeMillis());
+        this.answer = answer;
     }
 
     public Topic(int id, String title, int index, String date, List<String> options) {
