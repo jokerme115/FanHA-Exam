@@ -5,6 +5,7 @@
 
 <mapper namespace="com.FanHA.mapper.TopicMapper">
 
+
     <resultMap id="items" type="com.FanHA.pojo.Items">
         <id column="id" property="id"/>
         <result column="name" property="name" javaType="String" jdbcType="VARCHAR"/>
@@ -47,12 +48,11 @@
     </insert>
     <select id="selectTopic" resultType="com.FanHA.pojo.Topic" parameterType="arraylist">
         SELECT *
-        FROM topic;
+        FROM topic
     </select>
 
-    <select id="selectOption" resultType="string" parameterType="arraylist">
-        SELECT id
-        from topic_option;
+    <select id="selectOption" resultType="String" parameterType="arraylist">
+        SELECT `option` from topic_option WHERE id = #{id};
     </select>
 
     <select id="selectTopicByTitle" resultType="com.FanHA.pojo.Topic" parameterType="arraylist">

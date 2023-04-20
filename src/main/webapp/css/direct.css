@@ -7,7 +7,7 @@
 .container_direct{
     background-image: linear-gradient(rgb(135, 206, 250,0.8),rgba(151,193,220,0.1));
     width:100%;
-    height: 7vh;
+    height: 6vh;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -28,8 +28,6 @@ nav ul li{
     color:#777;
     cursor: pointer;
     position: relative;
-    z-index: 2;
-    transition: color 0.5s;
 }
 nav ul li::after{
     content: "";
@@ -38,17 +36,4 @@ nav ul li::after{
     height: 100%;
     border-radius: 30px;
     position: absolute;
-    top: 100%;
-    left: 50%;
-    transform: translate(-50%,-50%);
-    z-index: -1;
-    opacity: 0;
-    transition: top 0.5s,opacity 0.5s;
-}
-nav ul li:hover{
-    color: #fff;
-}
-nav ul li:hover::after{
-    top: 50%;
-    opacity: 1;
 }
