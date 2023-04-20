@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!--logo-->
+    <link rel="shortcut icon" href="image/wyb.png"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="css/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/direct.css">
+    <link rel="stylesheet" href="css/shell.css">
+    <link rel="stylesheet" href="css/wts-app.css">
+    <!-- 导入字体图标库 -->
+    <link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.css">
+    <title>FHA题库-成绩统计</title>
+</head>
+<body background="image/天空 (1).JPG" style="background-size: cover">
+<div id="app">
+    <!--导航栏-->
+    <div class="container_direct">
+        <div style="position: absolute;z-index: 99;top: 9px;left: 30px">
+            <img src="image/wyb.png" height="40px" width="60px">
+        </div>
+        <nav>
+            <ul>
+                <li>试卷管理</li>
+                <li>答题室</li>
+                <li>成绩统计</li>
+                <li>我的</li>
+            </ul>
+        </nav>
+    </div>
+    <!--搜素框-->
+    <div class="shell" style="margin: auto; width: 45%; margin-top: 10px">
+        <input type="text" placeholder="Search" style="border: none; outline: medium">
+        <a href="https://www.baidu.com">
+            <i class="fa fa-hand-o-right"></i>
+            <i class="fa fa-search"></i>
+        </a>
+    </div>
+    <!--分割线-->
+    <el-divider></el-divider>
+    <!--成绩统计-->
+    <div class="row" style="padding-top: 0">
+        <div class="col-md-2"></div>
+        <div class="col-md-8"
+             style="background-color: #c3def3;border-radius: 10px; margin-top: 50px; margin-bottom: 50px;">
+            <div class="row" style="margin: 20px;">
+                <div class="col-md-3"></div>
+                <div class="col-md-6" style="text-align: center;">
+                    <h3>王一博-成绩查询</h3>
+                </div>
+                <div class="col-md-3"></div>
+            </div>
+            <div class="row" style="margin: 20px;">
+                <div class="col-md-3"></div>
+                <div class="col-md-6">
+                    <form action="search/pointSearch.html" method="post">
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="searchWordInput" value="" name="word"
+                                   placeholder="请输入 试卷id / 试卷名称...">
+                            <span class="input-group-btn">
+									<button class="btn btn-default" type="button"
+                                            onclick="$('#searchWordInput').val('')">
+										<i class="glyphicon glyphicon-refresh "></i>
+									</button>
+									<button class="btn btn-default" type="submit">查询!</button>
+								</span>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-md-3"></div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 table-responsive">
+                    <table class="table table-striped">
+                        <thead style="background-color: #fff;border-radius: 50px">
+                        <tr>
+                            <th>试卷</th>
+                            <th>答题时间</th>
+                            <th>状态</th>
+                            <th>更多</th>
+                        </tr>
+                        </thead>
+                        <tbody style="background-color: #fff;border-radius: 50px">
+                        <tr>
+                            <td>单项选择题试卷</td>
+                            <td>2023-03-08 17:24</td>
+                            <td>完成全部答题</td>
+                            <td>
+                                <a target="_blank"
+                                   href="webpaper/originalCard.do?cardid=2c91808c78b62d7201794b4b084b0e57" type="button"
+                                   class="btn btn-success btn-xs">&nbsp;查看答卷</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>组合试题试卷</td>
+                            <td>2023-03-10 11:34</td>
+                            <td>完成全部答题</td>
+                            <td>
+                                <a target="_blank"
+                                   href="webpaper/originalCard.do?cardid=2c91808c77cceb5c01780fe67d9d0a10" type="button"
+                                   class="btn btn-success btn-xs">&nbsp;查看答卷</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>考试试卷</td>
+                            <td>2023-03-15 8:34</td>
+                            <td>完成全部答题</td>
+                            <td>
+                                <a target="_blank"
+                                   href="webpaper/originalCard.do?cardid=2c91808c77cceb5c01780fe67d9d0a10" type="button"
+                                   class="btn btn-success btn-xs">&nbsp;查看答卷</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>单项选择题试卷</td>
+                            <td>2023-03-18 16:34</td>
+                            <td>完成部分答题</td>
+                            <td>
+                                <a target="_blank"
+                                   href="webpaper/originalCard.do?cardid=2c91808c77cceb5c01780fe67d9d0a10" type="button"
+                                   class="btn btn-success btn-xs">&nbsp;查看答卷</a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="row" style="margin: 20px;">
+                <div class="col-md-12">
+                    <div style="text-align: center;">
+                        <nav aria-label="Page navigation">
+                            <el-pagination
+                                    background
+                                    layout="prev, pager, next"
+                                    :total="50">
+                            </el-pagination>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+    <div class="foot">
+        FHA题库 -V 1.0.0
+    </div>
+
+</div>
+<script src="js/vue.js"></script>
+<script src="element-ui/lib/index.js"></script>
+<link rel="stylesheet" href="element-ui/lib/theme-chalk/index.css">
+
+<script>
+    new Vue({
+        el: "#app",
+    })
+</script>
+</body>
+</html>

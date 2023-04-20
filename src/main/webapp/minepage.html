@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!--logo-->
+    <link rel="shortcut icon" href="image/wyb.png"/>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="css/direct.css">
+    <link rel="stylesheet" href="css/mine_box.css">
+    <link href="css/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/wts-app.css">
+    <link rel="stylesheet" href="css/shell.css">
+    <!-- 导入字体图标库 -->
+    <link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.css">
+    <title>FHA题库-我的</title>
+</head>
+<body background="image/天空 (1).JPG" style="background-size: cover">
+<div id="app">
+    <!--导航栏-->
+    <div class="container_direct">
+        <div style="position: absolute;z-index: 99;top: 9px;left: 30px">
+            <img src="image/wyb.png" height="40px" width="60px">
+        </div>
+        <nav>
+            <ul>
+                <li>试卷管理</li>
+                <li>答题室</li>
+                <li>成绩统计</li>
+                <li>我的</li>
+            </ul>
+        </nav>
+    </div>
+    <!--搜素框-->
+    <div class="shell" style="margin: auto; width: 45%; margin-top: 10px">
+        <input type="text" placeholder="Search" style="border: none; outline: medium">
+        <a href="https://www.baidu.com">
+            <i class="fa fa-hand-o-right"></i>
+            <i class="fa fa-search"></i>
+        </a>
+    </div>
+    <!--分割线-->
+    <el-divider></el-divider>
+    <div class="mine_box" style="height: 530px">
+        <!--左菜单选项-->
+        <template>
+            <el-tabs :tab-position="tabPosition" style="height: 300px;">
+                <el-tab-pane label="练习题记录"></el-tab-pane>
+                <el-tab-pane label="练习题错集"></el-tab-pane>
+                <el-tab-pane label="收藏练习题"></el-tab-pane>
+                <!--我的答题信息-->
+                <div class="my-body" style="background-color: rgb(202 229 233); border-radius: 20px">
+                    <div class="row" style="padding-right: 30px;">
+                        <div class="col-sm-2">
+                            <div style="text-align: center; padding: 4px;">
+                                <img id="imgShowBoxId" src="image/wyb.png" alt="wcp"
+                                     style="max-height: 96px; max-width: 96px;" class="img-circle">
+                            </div>
+                        </div>
+                        <div class="col-sm-10" style="padding-top: 10px">
+                            <div class="row">
+                                <div class="col-sm-12" style="padding-left: 24px;">
+                                    <strong>我</strong>
+                                    <small>属于组织机构</small>
+                                    <strong>海南师范大学</strong>
+                                    <small>于2023-4-19 14:48 建立账户
+                                    </small>
+                                </div>
+                            </div>
+                            <div class="row" style="font-size: 16px;padding-top: 20px;font-weight: 500">
+                                <div class="col-sm-3">
+                                    <div class="inbox">
+                                        <div class="numtag">13</div>
+                                        <div class="titletag">答题总数</div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="inbox">
+                                        <div class="numtag">11</div>
+                                        <div class="titletag">错题总数</div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="inbox">
+                                        <div class="numtag">10</div>
+                                        <div class="titletag">完成考卷总数</div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="inbox">
+                                        <div class="numtag">5</div>
+                                        <div class="titletag">完成练习总数</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </el-tabs>
+        </template>
+        <div style="padding: 50px;">
+            <div class="bottom1"></div>
+            <el-button @click="dialogTableVisible = true">修改账号信息</el-button>
+            <el-dialog title="个人信息" :visible.sync="dialogTableVisible">
+                <el-table :data="gridData">
+                    <el-table-column property="date" label="日期" width="150"></el-table-column>
+                    <el-table-column property="name" label="姓名" width="200"></el-table-column>
+                    <el-table-column property="address" label="地址"></el-table-column>
+                </el-table>
+            </el-dialog>
+        </div>
+        <!--我的最近足迹-->
+
+    </div>
+    <!--页脚-->
+    <div class="foot">
+        FHA题库 -V 1.0.0
+    </div>
+</div>
+
+<script src="js/vue.js"></script>
+<script src="element-ui/lib/index.js"></script>
+<link rel="stylesheet" href="element-ui/lib/theme-chalk/index.css">
+
+<script>
+    new Vue({
+        el: "#app",
+        data() {
+            return {
+                tabPosition: 'left',
+                dialogTableVisible: false,
+            }
+        }
+    })
+</script>
+</body>
+</html>

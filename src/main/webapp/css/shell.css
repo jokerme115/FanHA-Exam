@@ -1,0 +1,79 @@
+.shell{
+    position: relative;
+    padding: 8px;
+    background-color: #66CDAA;
+    border-radius: 20px;
+    box-shadow: 0 1px 5px #7FFFD4, 0 0 0 4px #fff;
+}
+.shell input{
+    width: 80%;
+    height: 20px;
+    color: #130c0c;
+    font:400 16px 'ËÎÌו';
+    background-color: transparent;
+}
+.shell input::placeholder{
+    color: #185544;
+    font-weight: bold;
+}
+.shell a{
+    display: flex;
+    font-size: 25px;
+    position: absolute;
+    right: -70px;
+    top: -3px;
+    color:#fff;
+    width: 250px;
+}
+.shell a .fa{
+    margin: 10px 28px;
+    transition: .5s;
+}
+.shell a .fa-search{
+    transform: translate(-80px);
+    opacity: 1;
+}
+.shell a .fa-hand-o-right{
+    transform: translate(-100px);
+    opacity: 0;
+}
+.shell a:hover .fa-search{
+    transform: translate(0);
+    opacity: 0;
+}
+.shell a:hover .fa-hand-o-right{
+    transform: translate(110px);
+    opacity: 1;
+}
+.shell a::before{
+    content: 'GO!';
+    position: absolute;
+    display: block;
+    font-size: 25px;
+    background-color: #66CDAA;
+    padding: 10px 15px;
+    top:6px;
+    right:-6px;
+    border-radius: 10px;
+    transition: 1s;
+    opacity: 0;
+    animation: box .5s infinite ease;
+}
+.shell a:hover::before{
+    top: -60px;
+    opacity: 1;
+}
+@keyframes box {
+    0%{
+        transform: rotate(6deg);
+    }
+    33%{
+        transform: rotate(8deg);
+    }
+    66%{
+        transform: rotate(-8deg);
+    }
+    100%{
+        transform: rotate(-6deg);
+    }
+}
