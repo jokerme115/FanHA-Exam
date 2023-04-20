@@ -11,16 +11,16 @@
 	font-size: 16px;
 	font-weight: 400;
 	line-height: 24px;
-	margin-bottom: -1px;
+	margin-bottom: -40px;
 	margin-left: 0px;
 	margin-right: 0px;
-	margin-top: 30px;
+	margin-top: -20px;
 	padding-bottom: 0px;
 	padding-left: 0px;
 	padding-right: 0px;
-	padding-top: 0px;
+	padding-top: 4px;
 	text-align: center;
-	background-color: #ffffff;
+	background-image: linear-gradient(rgb(121, 155, 202,0.6),rgba(255,255,255,0.1));
 }
 
 .wts-hometype-ul li {
@@ -71,6 +71,12 @@
 	text-overflow: ellipsis;
 }
 
+.side_unit_info{
+	color: #888;
+	font-size: 12px;
+	text-overflow: ellipsis;
+}
+
 .wts-select-unit {
 	margin-left: 20px;
 	cursor: pointer;
@@ -94,4 +100,12 @@
 	white-space: nowrap;
 	background-color: #f9f2f4;
 	border-radius: 4px
+}
+.foot {
+	margin-top: 88px;
+	text-align: center;
+	color: #FFFFFF;
+	font-size: 16px;
+	background-color: #86ccf8;
+	padding: 18px;
 }

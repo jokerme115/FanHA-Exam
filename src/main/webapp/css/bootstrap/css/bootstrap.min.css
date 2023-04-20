@@ -54,7 +54,8 @@ abbr[title] {
 }
 
 b, strong {
-    font-weight: bold
+    font-weight: bold;
+    font-size: 24px
 }
 
 dfn {
@@ -427,7 +428,7 @@ p {
 }
 
 small, .small {
-    font-size: 85%
+    font-size: 130%
 }
 
 cite {
@@ -727,7 +728,7 @@ pre code {
 
 .row {
     margin-right: -0px;
-    margin-left: -0px
+    margin-left: 20px
 }
 
 .row:before, .row:after {
@@ -977,7 +978,7 @@ pre code {
     }
 
     .col-sm-10 {
-        width: 83.33333333333334%
+        width: 83%
     }
 
     .col-sm-9 {
