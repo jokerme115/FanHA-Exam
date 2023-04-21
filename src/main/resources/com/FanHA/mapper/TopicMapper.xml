@@ -4,8 +4,6 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.FanHA.mapper.TopicMapper">
-
-
     <resultMap id="items" type="com.FanHA.pojo.Items">
         <id column="id" property="id"/>
         <result column="name" property="name" javaType="String" jdbcType="VARCHAR"/>
@@ -46,6 +44,13 @@
         </foreach>
         ;
     </insert>
+    <insert id="insertOption">
+        Insert INTO topic_option  (id, `option`) VALUES
+        <foreach collection="options" item="option" separator=",">
+            (#{id}, #{option})
+        </foreach>
+        ;
+    </insert>
     <select id="selectTopic" resultType="com.FanHA.pojo.Topic" parameterType="arraylist">
         SELECT *
         FROM topic
@@ -73,6 +78,9 @@
     <select id="selectPaperByNameToPaper" resultMap="paper">
         SELECT * FROM paper WHERE name = #{name};
     </select>
+    <select id="selectItems" resultType="com.FanHA.pojo.Items" parameterType="arraylist">
+        SELECT * from fanha.items
+    </select>
     <delete id="deleteTitleByIds">
         DELETE FROM topic WHERE id IN
         <foreach collection="ids" item="id" separator="," open="(" close=")">
@@ -81,7 +89,7 @@
         ;
     </delete>
     <delete id="deleteOptionsByIds">
-        DELETE FROM topic WHERE id IN
+        DELETE FROM topic_option WHERE id IN
         <foreach collection="ids" item="id" separator="," open="(" close=")">
             #{id}
         </foreach>

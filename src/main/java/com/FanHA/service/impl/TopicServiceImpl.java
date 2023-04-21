@@ -114,6 +114,16 @@ public class TopicServiceImpl implements TopicService {
     }
 
     @Override
+    public void deleteTopicOption(int[] ids) {
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        TopicMapper mapper = sqlSession.getMapper(TopicMapper.class);
+
+        mapper.deleteOptionsByIds(ids);
+        sqlSession.commit();
+        sqlSession.close();
+    }
+
+    @Override
     public boolean judgeItems(String name) {
         SqlSession sqlSession = sqlSessionFactory.openSession();
         TopicMapper mapper = sqlSession.getMapper(TopicMapper.class);
@@ -148,7 +158,51 @@ public class TopicServiceImpl implements TopicService {
         TopicMapper mapper = sqlSession.getMapper(TopicMapper.class);
 
         mapper.insertTopic(topic);
-        return mapper.selectTopicByName(topic.getTitle()) != null;
+        sqlSession.commit();
+        int topicId = mapper.getTopicId(topic);
+        topic.setId(topicId);
+        mapper.insertOption(topic);
+        sqlSession.commit();
+        boolean b = mapper.selectTopicByName(topic.getTitle()) != null;
+        sqlSession.close();
+        return b;
+    }
+
+    @Override
+    public void insertOption(Topic topic) {
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        TopicMapper mapper = sqlSession.getMapper(TopicMapper.class);
+
+        mapper.insertOption(topic);
+        sqlSession.commit();
+        sqlSession.close();
+    }
+
+    @Override
+    public boolean updateTopic(Topic topic) {
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        TopicMapper mapper = sqlSession.getMapper(TopicMapper.class);
+
+        mapper.updateTopic(topic);
+        sqlSession.commit();
+        boolean b = mapper.selectTopicByName(topic.getTitle()) != null;
+        sqlSession.close();
+        return b;
+    }
+
+    @Override
+    public List<Items> selectItems() {
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        TopicMapper mapper = sqlSession.getMapper(TopicMapper.class);
+
+        List<Items> items = mapper.selectItems();
+        for (Items item : items){
+            int[] ints = mapper.selectTopicByItems(item.getId());
+            List<Topic> topics = mapper.selectTopicByIds(ints);
+            item.setTopics(topics);
+        }
+        sqlSession.close();
+        return items;
     }
 
     @Override

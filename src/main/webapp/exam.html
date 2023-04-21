@@ -47,7 +47,7 @@
                             <!--题目框-->
                             <div class="">
                             <div class="chapterBox">
-                                <div class="subjectUnitViewBox" v-for="item in paper.items">
+                                <div class="subjectUnitViewBox" v-for="(item, index2) in paper.items">
                                     <div>{{item.type}}<span
                                             class="subjectPoint">本题{{item.score}}分</span>
                                     </div>
@@ -64,7 +64,7 @@
                                                 <div style="float: left; margin-left: 20px;">
                                                     <div>{{String.fromCharCode(65+index)}}.</div>
                                                 </div>
-                                                <label v-bind:for="item.id+'#'+option+'#'+index">
+                                                <label v-bind:for="item.id+'#'+option.id+'#'+index">
                                                 <div style="cursor: pointer">{{option}}</div></label>
                                             </div>
                                         </div>
@@ -73,8 +73,9 @@
                                             <ul>
                                                 <li v-for="(option, index) in topic.options">
                                                     <label style="cursor: pointer;">
-                                                        {{String.fromCharCode(65+index)}}.<input v-model=option.select  style="cursor: pointer;" type="radio"
-                                                            v-bind:value="index+1" v-bind:id="item.id+'#'+option+'#'+index" v-bind:name="topic.id">
+                                                        {{String.fromCharCode(65+index)}}.<input
+                                                            v-model= "option.select" style="cursor: pointer;" type="radio"
+                                                            v-bind:value="index+1" v-bind:id="item.id+'#'+option.id+'#'+index" v-bind:name="topic.id">
                                                     </label>
                                                 </li>
                                             </ul>
@@ -146,8 +147,16 @@
 <script>
     var vue = new Vue({
         el: "#app",
+        watch:{
+            select: function (){
+                alert(this.select);
+                for (let i = 0; i < this.paperReturnID.length; i++){
+                    if (this.paperReturn.id === id)
+                        this.paperReturnID.select = select;
+                }
+            }
+        },
         mounted(){
-            alert("aaaaa");
             let _this = this;
             axios({
                 method: "post",
@@ -177,37 +186,29 @@
                 this.date2 = hours2 + ':' + minutes2 + ':' + seconds
             },
             submit(){
-                /*alert("已执行");
-                alert(this.paper.name);
-                alert(this.paper.items);
-                alert(this.paper.items[i].name)
-                for (let i = 0; i < this.paper.items.length; i++){
-                    alert(this.paper.items[i].name)
-                    for (let j = 0; j < this.paper.items[i].topics.length; j++){
-                        alert(this.paper.items[i].topics.title);
-                    }
-                }*/
-                /*let flag = true;
+                for (let i = 0; i < this.paperReturnID.length; i++){
+                    console(this.paperReturnID.id)
+                    console(this.paperReturnID.select)
+                }
+            },
+            paperReturn(){
                 for (let item in this.paper.items)
-                    for (let topic in item.topics)
-                        if (topic.select.length !== topic.index)
-                            flag = false;
-
-                if (flag){
-
-                }else{
-                    this.$message({
-                        message: '还有题未完成！',
-                        type: 'warning'});
-                }*/
-            }
+                    for (let topic in item.topics){
+                        let demo = {
+                            id : topic.id,
+                            select : ''
+                        }
+                        this.paperReturnID.push(demo)
+                    }
+            },
         },
         data() {
             return {
+                paperReturnID:[],
                 deadline: Date.now() + 1000 * 60 * 60 * 8,
                 topicName:"testPaper",
                 paper: {},
-                select:[],
+                select:'',
                 loading:true,
                 user: {
                     name: "何涛",

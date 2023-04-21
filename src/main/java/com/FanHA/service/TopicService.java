@@ -1,5 +1,6 @@
 package com.FanHA.service;
 
+import com.FanHA.pojo.Items;
 import com.FanHA.pojo.Paper;
 import com.FanHA.pojo.Topic;
 
@@ -81,6 +82,7 @@ public interface TopicService {
      * @param ids 一组id
      */
     void deleteTopicByIds(int[] ids);
+    void deleteTopicOption(int[] ids);
     /*更改*/
     /*判断是否存在通过*/
     /**
@@ -97,4 +99,7 @@ public interface TopicService {
     boolean judgePaper(String name);
     boolean judgeTopic(Topic topic);
     boolean insertTopic(Topic topic);
+    void insertOption(Topic topic);
+    boolean updateTopic(Topic topic);
+    List<Items> selectItems();
 }

@@ -1,191 +1,97 @@
 {
-  "list": [
+  "date": "2023-04-17 15:53:57:716",
+  "id": 1,
+  "name": "testPaper",
+  "score": 125.0,
+  "time": 60,
+  "totalNums": 12,
+  "typeNums": 1,
+  "items": [
     {
-      "answer": "The font - type to set the type of font",
-      "date": "2023-04-11 16:58:36:633",
-      "id": 38,
-      "index": 4,
-      "options": [
-        "The font - size to set the text font size",
-        "The text - align used to set the text alignment",
-        "The font - type to set the type of font",
-        "The font - weight to set the font weight"
+      "date": "2023-04-14 21:19:48:048",
+      "id": 6,
+      "name": "testItems",
+      "score": 60.0,
+      "topics": [
+        {
+          "answer": "< hgroup >",
+          "date": "2023-04-21 02:03:04:483",
+          "id": 32,
+          "index": 4,
+          "options": [
+            "<group>",
+            "<header>",
+            "<headings>",
+            "< hgroup >"
+          ],
+          "title": "In HTML 5, which element is used to combine header element111"
+        },
+        {
+          "answer": "cols",
+          "date": "2023-04-11 16:58:36:628",
+          "id": 33,
+          "index": 4,
+          "options": [
+            "row",
+            "rows",
+            "col",
+            "cols"
+          ],
+          "title": "In HTML, around the following () sets the framework of attributes can be split window"
+        }
       ],
-      "title": "In HTML, the following about CSS text and font properties, which one is wrong?"
+      "totalNums": 6,
+      "type": "select"
     },
     {
-      "answer": "The client",
-      "date": "2023-04-11 16:58:36:634",
-      "id": 39,
-      "index": 4,
-      "options": [
-        "The server side",
-        "The client",
-        "After the server is running, the results back to the client",
-        "In the client after the operation, the results back to the server"
+      "date": "2023-04-14 21:19:48:048",
+      "id": 7,
+      "name": "testItems2",
+      "score": 65.0,
+      "topics": [
+        {
+          "answer": "< hgroup >",
+          "date": "2023-04-21 02:03:04:483",
+          "id": 32,
+          "index": 4,
+          "options": [
+            "<group>",
+            "<header>",
+            "<headings>",
+            "< hgroup >"
+          ],
+          "title": "In HTML 5, which element is used to combine header element111"
+        },
+        {
+          "answer": "cols",
+          "date": "2023-04-11 16:58:36:628",
+          "id": 33,
+          "index": 4,
+          "options": [
+            "row",
+            "rows",
+            "col",
+            "cols"
+          ],
+          "title": "In HTML, around the following () sets the framework of attributes can be split window"
+        },
+        {
+          "answer": "7",
+          "date": "2023-04-11 16:58:36:633",
+          "id": 34,
+          "index": 4,
+          "options": [
+            "3",
+            "6",
+            "7",
+            "9"
+          ],
+          "title": "In HTML, as shown in the following table contains the cell number is\n< table border = \"1\" >\n< tr >\n< td colspan = \"3\" > test < td >\n< / tr >\n< tr >\n< td > Java < / td >\n< td > < / td > c #\n< td > < td > HTML\n< / tr >\n< tr >\n< td > 100 < / td >\n< td > 80 < / td >\n< td > 65 < / td >\n< / tr >\n< / table >"
+        }
       ],
-      "title": "JavaScript is running in a scripting language ()"
-    },
-    {
-      "answer": "null==undefined",
-      "date": "2023-04-11 16:58:36:634",
-      "id": 40,
-      "index": 4,
-      "options": [
-        "null instanceof Object",
-        "null===undefined",
-        "null==undefined",
-        "NaN==NaN"
-      ],
-      "title": "Please select a result to true expression"
-    },
-    {
-      "answer": "#box { position:relative; } #tabs { position:absolute; right:0; bottom:1; }",
-      "date": "2023-04-11 16:58:36:634",
-      "id": 41,
-      "index": 4,
-      "options": [
-        "#tabs { position:absolute; right:0; bottom:1; }",
-        "#tabs { position:relative; right:0; bottom:1; }",
-        "#box { position:relative; } #tabs { position:absolute; right:0; bottom:1; }",
-        "#box { position:relative; } #tabs { position:right bottom; }"
-      ],
-      "title": "Read the following HTML code:\n< div id = \"box\" >\n< div id = \"tabs\" > < / div >\n< / div >.\nIf you expect the tabs located at the right bottom corner of the box container is need to add the CSS style right?"
-    },
-    {
-      "answer": "In turn output \"32\" px \"px\"",
-      "date": "2023-04-11 16:58:36:634",
-      "id": 42,
-      "index": 4,
-      "options": [
-        "In turn output \"px\" \"px\"",
-        "In turn, output \"32\" and \"32\"",
-        "In turn output \"32\" px \"px\"",
-        "32 px output in turn 32 \"px\" \"\""
-      ],
-      "title": "Review the following program fragment:\nVar STR = \"32 px\";\nVar str1 = STR. Slice (2);\nAlert (STR);\nAlert (str1);\nThe following options is correct"
-    },
-    {
-      "answer": "availHeight",
-      "date": "2023-04-11 16:58:36:634",
-      "id": 43,
-      "index": 4,
-      "options": [
-        "width",
-        "height",
-        "availHeight",
-        "pixelHeight"
-      ],
-      "title": "Screen objects which property is used to return the height of the screen (not including Windows taskbar)"
-    },
-    {
-      "answer": "File name extension. Cs",
-      "date": "2023-04-11 16:58:36:634",
-      "id": 44,
-      "index": 4,
-      "options": [
-        "File name extension. Cs",
-        "External style sheet content does not need to use the < style > tag",
-        "Using the < link > tag into the external style",
-        "Use an external stylesheet can make a site more concise, keep style is unified"
-      ],
-      "title": "The following is wrong about external style sheet is which one?"
-    },
-    {
-      "answer": "The location object is the history object's parent object",
-      "date": "2023-04-11 16:58:36:634",
-      "id": 45,
-      "index": 4,
-      "options": [
-        "History records the user object in a browser has visited URLs",
-        "The location object is equal to the IE browser address bar, contains information about the current URL address",
-        "The location object is the history object's parent object",
-        "The child object location object is the window object"
-      ],
-      "title": "The following options about browser object is wrong"
-    },
-    {
-      "answer": "Inline style > id selector > class selectors, pseudo class selectors, attribute selectors > tag selector, pseudo element selector",
-      "date": "2023-04-11 16:58:36:634",
-      "id": 46,
-      "index": 4,
-      "options": [
-        "Inline style > id selector > class selectors, pseudo class selectors, attribute selectors > tag selector, pseudo element selector",
-        "Id selector > inline style > class selectors, pseudo class selectors, attribute selectors > tag selector, pseudo element selector",
-        "Id selector > tag selector, pseudo element selector > inline style > class selectors, pseudo class selectors, attribute selectors",
-        "Inline style > id selector > tag selector, pseudo element selector > class selectors, pseudo class selectors, attribute selectors"
-      ],
-      "title": "The priority of CSS selectors, which of the following is correct?"
-    },
-    {
-      "answer": "In the page, three frameworks are created, the left column contains two frameworks (each 50%), and the right one accounts for 70% of the window. ",
-      "date": "2023-04-11 16:58:36:634",
-      "id": 47,
-      "index": 4,
-      "options": [
-        "In the page, three frameworks are created, the left column contains two frameworks (each 50%), and the right one accounts for 70% of the window. ",
-        "In the page, three frameworks are created, the left column accounts for 30% of the window, and the right one contains two frameworks (50% each). ",
-        "In the page, three frameworks are created, the top line accounts for 30% of the window, and the next line contains two frameworks (each accounts for 50%). ",
-        "In the page, three frameworks are created, the top line contains two frameworks (each 50%), and the next line accounts for 70% of the window."
-      ],
-      "title": "To analyze the following HTML code segment, the following description is correct\n<frameset cols=\"30%,*\">\n\n    <frameset rows=\"50%,50%\">\n\n        <frame name=\"fx\" src=\"x.html\">\n\n        <frame name=\"fy\" src=\"y.html\">\n\n    <frameset>\n\n    <frame ame=\"fz\" src=\"z.html\">\n\n <frameset>"
+      "totalNums": 6,
+      "type": "select"
     }
-  ],
-  "pageInfo": {
-    "endRow": 20,
-    "firstPage": 1,
-    "hasNextPage": true,
-    "hasPreviousPage": true,
-    "isFirstPage": false,
-    "isLastPage": false,
-    "lastPage": 3,
-    "list": [
-      {
-        "$ref": "$.list[0]"
-      },
-      {
-        "$ref": "$.list[1]"
-      },
-      {
-        "$ref": "$.list[2]"
-      },
-      {
-        "$ref": "$.list[3]"
-      },
-      {
-        "$ref": "$.list[4]"
-      },
-      {
-        "$ref": "$.list[5]"
-      },
-      {
-        "$ref": "$.list[6]"
-      },
-      {
-        "$ref": "$.list[7]"
-      },
-      {
-        "$ref": "$.list[8]"
-      },
-      {
-        "$ref": "$.list[9]"
-      }
-    ],
-    "navigateFirstPage": 1,
-    "navigateLastPage": 3,
-    "navigatePages": 8,
-    "navigatepageNums": [
-      1,
-      2,
-      3
-    ],
-    "nextPage": 3,
-    "pageNum": 2,
-    "pageSize": 10,
-    "pages": 3,
-    "prePage": 1,
-    "size": 10,
-    "startRow": 11,
-    "total": 28
-  }
+  ]
+
 }

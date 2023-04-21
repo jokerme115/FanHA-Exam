@@ -3,10 +3,7 @@ package com.FanHA.mapper;
 import com.FanHA.pojo.Items;
 import com.FanHA.pojo.Paper;
 import com.FanHA.pojo.Topic;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -24,12 +21,6 @@ public interface TopicMapper {
     int getTopicId(Topic topic);
     @Select("SELECT * from topic WHERE title = #{title}")
     Topic selectTopicByName(String title);
-    /**
-     * 把id和答案传入到数据库
-     * @param topic 传入带有id的Topic
-     */
-    @Select("select * from fanha.topic_option where id = #{id}")
-    void insertOption(Topic topic);
     /**
      * 查找所有题目
      * @return 将Topic封装成List返回
@@ -67,6 +58,7 @@ public interface TopicMapper {
      */
     @Select("SELECT * FROM items WHERE name = #{name}")
     Items selectItemsByNameToItems(String name);
+    List<Items> selectItems();
     /**
      * 通过题目集id查询题目集
      * @param id 题目id
@@ -96,6 +88,11 @@ public interface TopicMapper {
      */
     Paper selectPaperByNameToPaper(String name);
     //Insert
+    /**
+     * 把id和答案传入到数据库
+     * @param topic 传入带有id的Topic
+     */
+    void insertOption(Topic topic);
     /**
      * 添加题目、题目数量、时间、答案
      * @param topic 传入还未查询id的题目集
@@ -151,6 +148,7 @@ public interface TopicMapper {
      * @param ids 题目序号数组
      */
     void deleteOptionsByIds(@Param("ids") int[] ids);
-
+    @Update("UPDATE topic SET title = #{title}, date = #{date}, answer = #{answer} where id = #{id}")
+    void updateTopic(Topic topic);
 
 }

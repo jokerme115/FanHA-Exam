@@ -49,6 +49,21 @@ public class Topic {
         this.index = index;
         this.date = date;
     }
+    public Topic(int id, String title, int index, List<String> options, String answer) {
+        this.id = id;
+        this.index = index;
+        this.title = title;
+        this.options = options;
+        this.date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss:SSS").format(System.currentTimeMillis());
+        this.answer = answer;
+    }
+    public Topic(String title, int index, List<String> options, String answer) {
+        this.index = index;
+        this.title = title;
+        this.options = options;
+        this.date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss:SSS").format(System.currentTimeMillis());
+        this.answer = answer;
+    }
 
     public int getId() {
         return id;

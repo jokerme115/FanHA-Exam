@@ -6,16 +6,12 @@ import com.FanHA.pojo.Topic;
 import com.FanHA.service.impl.TopicServiceImpl;
 import com.FanHA.util.SqlSessionFactoryUtils;
 import com.alibaba.fastjson.JSON;
-import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
-import net.sf.jsqlparser.statement.select.Top;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.formula.functions.T;
 import org.apache.poi.ss.usermodel.CellType;
 import org.junit.Test;
 
@@ -139,7 +135,7 @@ public class TestTopic {
     }
     @Test
     public void deleteTitleByIds(){
-        int[] ids1 = {26, 27};
+        int[] ids1 = {54, 55};
         TopicServiceImpl topicService = new TopicServiceImpl();
         topicService.deleteTopicByIds(ids1);
     }
@@ -209,5 +205,98 @@ public class TestTopic {
         PageBean<Topic> page= new PageBean<>(allTopic);
         String jsonString = JSON.toJSONString(page);
         System.out.println(jsonString);
+    }
+    @Test
+    public void addTopic(){
+        ArrayList<String> string = new ArrayList<>();
+        string.add("2");
+        string.add("3");
+        string.add("4");
+        string.add("5");
+        Topic topic = new Topic("1", 4, string, "3");
+
+        TopicServiceImpl topicService = new TopicServiceImpl();
+        boolean b = topicService.insertTopic(topic);
+        System.out.println(b);
+    }
+    @Test
+    public void updateTopic(){
+        ArrayList<String> string = new ArrayList<>();
+        string.add("3");
+        string.add("4");
+        string.add("5");
+        string.add("6");
+
+        Topic topic = new Topic("2", 4, string, "4");
+        System.out.println(topic);
+        TopicServiceImpl topicService = new TopicServiceImpl();
+        List<Topic> topics = topicService.selectTopicByTitle(topic.getTitle());
+        topic = topics.get(0);
+        System.out.println(topic);
+        topicService.updateTopic(topic);
+        topicService.deleteTopicOption(new int[]{topic.getId()});
+        topicService.insertOption(topic);
+        boolean b = topicService.updateTopic(topic);
+        System.out.println(b);
+    }
+    /*@Test
+    public void up(){
+        // Endpoint以华东1（杭州）为例，其它Region请按实际情况填写。
+        String endpoint = "https://oss-cn-beijing.aliyuncs.com";
+        // 阿里云账号AccessKey拥有所有API的访问权限，风险很高。强烈建议您创建并使用RAM用户进行API访问或日常运维，请登录RAM控制台创建RAM用户。
+        String accessKeyId = "LTAI5tSWjnA4Y2v6ffUiLwcX";
+        String accessKeySecret = "kyLqMiFEzTXL1nmwOvJHQ06nGjHVhz";
+        // 填写Bucket名称，例如examplebucket。
+        String bucketName = "fanha-exam";
+        // 填写Object完整路径，完整路径中不能包含Bucket名称，例如exampledir/exampleobject.txt。
+        String objectName = "exampledir/exampleobject.txt";
+
+        // 创建OSSClient实例。
+        OSS ossClient = new OSSClientBuilder().build(endpoint, accessKeyId, accessKeySecret);
+
+        try {
+            // 填写字符串。
+            String content = "Hello OSS，你好世界";
+
+            // 创建PutObjectRequest对象。
+            PutObjectRequest putObjectRequest = new PutObjectRequest(bucketName, objectName, new ByteArrayInputStream(content.getBytes()));
+
+            // 如果需要上传时设置存储类型和访问权限，请参考以下示例代码。
+            // ObjectMetadata metadata = new ObjectMetadata();
+            // metadata.setHeader(OSSHeaders.OSS_STORAGE_CLASS, StorageClass.Standard.toString());
+            // metadata.setObjectAcl(CannedAccessControlList.Private);
+            // putObjectRequest.setMetadata(metadata);
+
+            // 设置该属性可以返回response。如果不设置，则返回的response为空。
+            putObjectRequest.setProcess("true");
+            // 上传字符串。
+            PutObjectResult result = ossClient.putObject(putObjectRequest);
+            // 如果上传成功，则返回200。
+            System.out.println(result.getResponse().getStatusCode());
+        } catch (OSSException oe) {
+            System.out.println("Caught an OSSException, which means your request made it to OSS, "
+                    + "but was rejected with an error response for some reason.");
+            System.out.println("Error Message:" + oe.getErrorMessage());
+            System.out.println("Error Code:" + oe.getErrorCode());
+            System.out.println("Request ID:" + oe.getRequestId());
+            System.out.println("Host ID:" + oe.getHostId());
+        } catch (ClientException ce) {
+            System.out.println("Caught an ClientException, which means the client encountered "
+                    + "a serious internal problem while trying to communicate with OSS, "
+                    + "such as not being able to access the network.");
+            System.out.println("Error Message:" + ce.getMessage());
+        } finally {
+            if (ossClient != null) {
+                ossClient.shutdown();
+            }
+        }
+
+    }*/
+    @Test
+    public void selectItems(){
+        TopicServiceImpl topicService = new TopicServiceImpl();
+        List<Items> items = topicService.selectItems();
+
+        System.out.println(items);
     }
 }
