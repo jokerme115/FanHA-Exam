@@ -134,7 +134,9 @@
     </div>
 
     <!--页脚-->
-    <div class="el-footer" style="text-align: center; font-family: Helvetica Neue,serif;"><b>FanHA在线答题 version-1.0</b></div>
+    <div class="foot">
+        FHA题库 -V 1.0.0
+    </div>
 </div>
 
 
@@ -201,6 +203,9 @@
                         this.paperReturnID.push(demo)
                     }
             },
+            goBack() {
+                window.location.href="homePaper.html"
+            }
         },
         data() {
             return {

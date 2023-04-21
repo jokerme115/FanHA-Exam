@@ -2,10 +2,32 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <!--logo-->
+    <link rel="shortcut icon" href="https://s2.loli.net/2023/04/21/fj1385u7xsZoNPI.png"/>
+    <title>FHA题库-试卷</title>
+    <link href="css/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/direct.css">
+    <link rel="stylesheet" href="css/shell.css">
+    <link rel="stylesheet" href="css/wts-app.css">
+    <!-- 导入字体图标库 -->
+    <link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.css">
 </head>
-<body>
+<body background="https://s2.loli.net/2023/04/21/ldUvMHt5h7ZNygR.jpg" style="background-size: cover">
 <div id="app">
+  <!--导航栏-->
+  <div class="container_direct">
+    <div  style="position: absolute;z-index: 99;top: 9px;left: 30px">
+      <a href="homePaper.html"><img src="image/logo.png" height="60px" width="100px"></a>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="Topic.html" style="text-decoration: none;">试卷管理</a></li>
+        <li><a href="exam.html" style="text-decoration: none;">答题室</a></li>
+        <li><a href="myexam.html" style="text-decoration: none;">成绩统计</a></li>
+        <li><a href="minepage.html" style="text-decoration: none;">我的</a></li>
+      </ul>
+    </nav>
+  </div>
   <template>
     <el-table
             ref="multipleTable"
@@ -41,6 +63,10 @@
   <p v-for="(i, index) in multipleSelection">
     {{i}}
   </p>
+  <!--页脚-->
+  <div class="foot">
+    FHA题库 -V 1.0.0
+  </div>
 </div>
 
 
